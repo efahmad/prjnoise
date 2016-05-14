@@ -1,0 +1,73 @@
+<div class="panel panel-info">
+    <div class="panel-heading"><h5>افزودن فایل</h5></div>
+    <div class="panel-body">
+        <div class="container-fluid">
+            <!-- Select File Button -->
+            <div class="row row-bottom-space">
+                <div class="col-md-2 text-left">
+                    <input ng-show="false" id="fileSelector" type="file"
+                           onchange="angular.element(this).scope().fileNameChanged(this)"/>
+                    <button type="button" class="btn btn-info" ng-click="vm.selectFile()">
+                        <i class="fa fa-folder-open-o left-margin-10" aria-hidden="true"></i>
+                        <span>انتخاب فایل</span>
+                    </button>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" ng-disabled="true" ng-model="vm.selectedFileName"
+                           style="text-align: center;">
+                </div>
+            </div>
+            <!-- Select File Hint -->
+            <div class="row row-bottom-space" ng-if="!vm.noises || vm.noises.length === 0">
+                <div class="col-md-2"></div>
+                <div class="col-md-4">
+                    <div class="alert alert-info">
+                        <i class="fa fa-info left-margin-10" aria-hidden="true"></i>
+                        <span>لطفا فایل داده را انتخاب نمایید</span>
+                    </div>
+                </div>
+            </div>
+            <!-- grid view -->
+            <div ng-if="vm.noises && vm.noises.length > 0" class="row row-top-space-md row-bottom-space">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span class="left-margin-10">داده های فایل</span>
+                            <button type="button" ng-show="vm.showSaveButton"
+                                    class="btn btn-primary btn-info" ng-click="vm.saveData()">
+                                <i class="fa fa-floppy-o left-margin-10" aria-hidden="true"></i>
+                                <span>ذخیره</span>
+                            </button>
+                        </div>
+                        <div class="panel-body gridViewContainer">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>ردیف</th>
+                                    <th>زمان</th>
+                                    <th>دما</th>
+                                    <th>ولتاژ</th>
+                                    <th>جریان</th>
+                                    <!--<th>مجذور جریان</th>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="row in vm.noises">
+                                    <td class="numericTd" ng-bind="row.rowNum"></td>
+                                    <td class="numericTd" ng-bind="row.time"></td>
+                                    <td class="numericTd" ng-bind="row.temp"></td>
+                                    <td class="numericTd" ng-bind="row.voltage"></td>
+                                    <td class="numericTd" ng-bind="row.amperage"></td>
+                                    <!--<td ng-bind="row.amperageSquare"></td>-->
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</div>

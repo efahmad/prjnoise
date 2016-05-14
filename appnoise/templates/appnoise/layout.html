@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>سامانه محاسبات نویز</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <!-- Styles -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-rtl.min.css" rel="stylesheet">
+    <link href="/static/fonts/fonts-fa.css" rel="stylesheet">
+    <link href="/static/css/toastr.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Diagrams Style -->
+    <link href="/static/css/nv.d3.min.css" rel="stylesheet"/>
+    <!-- Site Template -->
+    <link href="/static/css/custom.css" rel="stylesheet">
+    <!-- Angular loading bar -->
+    <link rel="stylesheet" href="/static/css/loading-bar.css" />
+    <!-- angular-block-ui -->
+    <link rel="stylesheet" href="/static/css/angular-block-ui.min.css" />
+
+
+</head>
+
+<body ng-app="noiseApp" ng-cloak>
+
+<!-- Nav Bar -->
+<nav class="navbar navbar-default navbar-fixed-top" style="border-radius: 0;" ng-controller="menuController as vm">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="">
+                <i class="fa fa-calculator left-margin-10" aria-hidden="true"></i>
+                <span>سامانه محاسبات نویز</span>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li ng-class="{'active': vm.activePath === '#/'}" ng-click="vm.setActivePath('#/')"><a href="#/">
+                    <i class="fa fa-home left-margin-10" aria-hidden="true"></i>
+                    <span>صفحه اصلی</span>
+                </a></li>
+                <li ng-class="{'active': vm.activePath === '#/'}" ng-click="vm.setActivePath('#/')"><a href="#/">
+                    <i class="fa fa-file-text-o left-margin-10" aria-hidden="true"></i>
+                    <span>افزودن فایل</span>
+                </a></li>
+                <li ng-class="{'active': vm.activePath === '#/measurements'}"
+                    ng-click="vm.setActivePath('#/measurements')"><a href="#/measurements">
+                    <i class="fa fa-file-archive-o left-margin-10" aria-hidden="true"></i>
+                    <span>فایل های ذخیره شده</span>
+                </a></li>
+                <!--<li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>-->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Page 1-1</a></li>
+                        <li><a href="#">Page 1-2</a></li>
+                        <li><a href="#">Page 1-3</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-left">
+                <!--<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>-->
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row" style="margin-top: 75px;">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <!-- Views placeholder -->
+            <div ng-view></div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/static/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<!-- Angular JS -->
+<script type="text/javascript" src="/static/js/angular.min.js"></script>
+<script type="text/javascript" src="/static/js/angular-route.min.js"></script>
+<script type="text/javascript" src="/static/js/angular-animate.min.js"></script>
+<!-- Angular loading bar -->
+<script type="text/javascript" src="/static/js/loading-bar.min.js"></script>
+<!-- angular-block-ui -->
+<script type="text/javascript" src="/static/js/angular-block-ui.min.js"></script>
+<!-- Other Scripts -->
+<script type="text/javascript" src="/static/js/d3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/nv.d3.min.js"></script>
+<script type="text/javascript" src="/static/js/angular-nvd3.min.js"></script>
+<script type="text/javascript" src="/static/js/math.min.js"></script>
+<script type="text/javascript" src="/static/js/toastr.min.js"></script>
+<script type="text/javascript" src="/static/js/moment.js"></script>
+<script type="text/javascript" src="/static/js/moment-timezone-with-data.js"></script>
+<!-- Noise App Scripts -->
+<script type="text/javascript" src="/static/app/app.module.js"></script>
+<script type="text/javascript" src="/static/app/app.routes.js"></script>
+<!-- Services -->
+<script type="text/javascript" src="/static/app/shared/services/measurement.service.js"></script>
+<script type="text/javascript" src="/static/app/shared/services/measurementRecord.service.js"></script>
+<script type="text/javascript" src="/static/app/shared/services/measurementResult.service.js"></script>
+<script type="text/javascript" src="/static/app/shared/services/datetime.service.js"></script>
+<!-- Constants -->
+<script type="text/javascript" src="/static/app/shared/constants/statusCodes.constant.js"></script>
+<!-- Controllers -->
+<script type="text/javascript" src="/static/app/components/home/home.controller.js"></script>
+<script type="text/javascript" src="/static/app/components/measurement/measurement.controller.js"></script>
+<!-- Initialization script -->
+<script type="text/javascript">
+    toastr.options.positionClass = "toast-bottom-left";
+
+    function menuController() {
+
+        //==== variables ====//
+        var vm = this;
+        vm.activePath = '#/';
+
+
+        //==== function definitions ====//
+        vm.setActivePath = setActivePath;
+
+
+        //==== function implementations ====//
+        function setActivePath(path) {
+            vm.activePath = path;
+        }
+    }
+
+    angular.module("noiseApp").controller("menuController", menuController);
+    menuController.$inject = [];
+</script>
+</body>
+
+</html>
