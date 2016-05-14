@@ -5,7 +5,7 @@
 (function () {
     'use strict';
 
-    function homeController($scope, measurementService, measurementRecordService) {
+    function homeController($scope, blockUI, measurementService, measurementRecordService) {
 
         //==== Variables ====//
         var vm = this;
@@ -27,7 +27,8 @@
 
         //==== Function implementations ====//
         function start() {
-
+            // Set view title
+            angular.element("#viewTitle").html("افزودن فایل");
         }
 
         function saveMeasurement(measurement) {
@@ -78,12 +79,12 @@
 
             // Reset previous data
             vm.noises = [];
-            /*vm.voltageData = [];
-             vm.amperageData = [];*/
             $scope.$apply();
 
             reader.onload = function (progressEvent) {
-                // By lines
+                // Free the UI
+                blockUI.stop();
+                // Read by lines
                 var lines = this.result.trim().split('\n');
                 var tempNoise = {};
                 var rowCounter = 0;
@@ -112,25 +113,17 @@
                     }
                 }
 
-                /*try {
-                 vm.calcResults();
-                 if (rowCounter === lines.length - 1) {
-                 toastr.success("محاسبه نتایج با موفقیت انجام شد");
-                 }
-                 } catch (err) {
-                 toastr.error("خطا در محاسبه نتایج");
-                 }*/
-
-                // Prepare data for diagrams
-                /*vm.voltageData = vm.getDataForDiagram("voltage", "Voltage Wave", "#2ca02c");
-                 vm.amperageData = vm.getDataForDiagram("amperage", "Amperage Wave", "#2ca02c");*/
                 // show save button
                 vm.showSaveButton = true;
                 // Apply changes to the scope
                 $scope.$apply();
             };
+            // Block the ui
+            blockUI.start("در حال بارگذاری فایل ...");
+            // Start reading the file
             reader.readAsText(file);
         };
+
         function saveData() {
             // Get date & time from file name
             var dateArray = vm.selectedFileName.split("Date(")[1].split(")")[0].split("-");
@@ -157,11 +150,10 @@
 
         function selectFile() {
             angular.element("#fileSelector").click();
-            angular
         }
     }
 
     angular.module("noiseApp").controller("homeController", homeController);
-    homeController.$inject = ["$scope", "measurementService", "measurementRecordService"];
+    homeController.$inject = ["$scope", "blockUI", "measurementService", "measurementRecordService"];
 
 })();

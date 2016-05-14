@@ -101,6 +101,10 @@
 
         //==== Function Implementations ====//
         function start() {
+
+            // Set view title
+            angular.element("#viewTitle").html("فایل های ذخیره شده");
+
             vm.getMeasurements();
 
             vm.voltageOptions = angular.copy(vm.options);
