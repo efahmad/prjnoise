@@ -1,12 +1,13 @@
 /**
  *
  */
-(function() {
+(function () {
 
     function measurementService($http) {
         var service = {
             add: add,
             getAll: getAll,
+            remove: remove,
             getRecords: getRecords,
             getResults: getResults
         };
@@ -24,6 +25,13 @@
             return $http({
                 url: "/measurements/",
                 method: "GET"
+            });
+        }
+
+        function remove(id) {
+            return $http({
+                url: "/measurements/" + id + "/",
+                method: "DELETE"
             });
         }
 

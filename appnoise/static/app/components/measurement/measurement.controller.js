@@ -94,6 +94,7 @@
         vm.applyFilters = applyFilters;
         vm.resetFilter = resetFilter;
         vm.clearForm = clearForm;
+        vm.deleteFile = deleteFile;
         vm.start = start;
 
         // Start the app
@@ -273,6 +274,20 @@
             vm.isAmperageFiltered = false;
             vm.amperageFilterMin = undefined;
             vm.amperageFilterMax = undefined;
+        }
+
+        /**
+         * Deletes a file by it's id. this function also removes all of the file records and it's results
+         * @param fileId
+         */
+        function deleteFile(fileId) {
+            measurementService.remove(fileId).success(function (data, status) {
+                toastr.success("فایل با موفقیت حذف شد");
+                // Reload measurement files list
+                vm.getMeasurements();
+            }).error(function (data, status) {
+                toastr.error("خطا در حذف فایل");
+            });
         }
     }
 

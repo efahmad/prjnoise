@@ -30,11 +30,6 @@
     }
 </style>
 <div class="container-fluid">
-    <!-- Content Header (Page header) -->
-    <div class="row row-bottom-space-high">
-            <h3>فایل های ذخیره شده</h3>
-    </div>
-
     <!-- No Data Hint -->
     <div class="row row-bottom-space" ng-if="!vm.measurements || vm.measurements.length === 0">
         <div class="col-md-12">
@@ -48,23 +43,45 @@
     <!-- Data Grid -->
     <div class="row row-top-space row-bottom-space" ng-if="vm.measurements.length > 0">
         <div class="col-md-12">
-            <div class="gridViewContainer">
-                <table class="measurementsTable table table-striped table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th>ردیف</th>
-                        <th>عنوان</th>
-                        <th>تاریخ</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="row in vm.measurements" ng-click="vm.onMeasurementSelected(row.id)">
-                        <td ng-bind="row.rowNum"></td>
-                        <td ng-bind="row.title"></td>
-                        <td ng-bind="vm.dateTimeService.toTehranTimeZone(row.measurement_date)"></td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="panel panel-default">
+                <div class="panel-heading"></div>
+                <div class="panel-body gridViewContainer">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>ردیف</th>
+                            <th>عنوان</th>
+                            <th>تاریخ</th>
+                            <th>مشاهده نتایج</th>
+                            <th>حذف فایل</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="row in vm.measurements">
+                            <td ng-bind="row.rowNum"></td>
+                            <td ng-bind="row.title"></td>
+                            <td style="direction: ltr;"
+                                ng-bind="vm.dateTimeService.toTehranTimeZone(row.measurement_date)"></td>
+                            <td></td>
+                            <td>
+                                <button type="button"
+                                        class="btn btn-danger"
+                                        mwl-confirm
+                                        title="{{ 'حذف فایل' }}"
+                                        message="{{ 'فایل مورد نظر و تمامی داده ها و نتایج آن حذف خواهد شد. ادامه می دهید ؟' }}"
+                                        confirm-text="{{ 'بله' }}"
+                                        cancel-text="{{ 'انصراف' }}"
+                                        placement="{{ 'top' }}"
+                                        on-confirm="vm.deleteFile(row.id)"
+                                        confirm-button-type="danger"
+                                        cancel-button-type="default">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

@@ -5,6 +5,7 @@ from appnoise.views import home, measurements, measurement_results, measurement_
 urlpatterns = [
     url(r'^$', home.index, name='index'),
     url(r'^measurements/$', measurements.MeasurementList.as_view()),
+    url(r'^measurements/(?P<pk>[0-9]+)/$', measurements.MeasurementDetail.as_view()),
     url(r'^measurements/(?P<pk>[0-9]+)/measurementRecords/$',
         measurements.MeasurementMeasurementRecordDetails.as_view()),
     url(r'^measurements/(?P<pk>[0-9]+)/measurementResults/$',
