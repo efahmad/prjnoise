@@ -49,9 +49,13 @@ td {
     margin-left: 10px;
 }
 
+.left-margin-5 {
+    margin-left: 5px;
+}
+
 .gridViewContainer {
     height: 300px;
-    overflow-y: scroll;
+    overflow-y: auto;
     padding: 0;
 }
 

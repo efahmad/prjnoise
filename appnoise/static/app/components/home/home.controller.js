@@ -6,7 +6,7 @@
     'use strict';
 
     function homeController($scope, blockUI, measurementService, measurementRecordService,
-                            measurementResultService) {
+                            measurementResultService, mathService) {
 
         //==== Variables ====//
         var vm = this;
@@ -23,6 +23,8 @@
         vm.start = start;
         vm.clearForm = clearForm;
         vm.selectFile = selectFile;
+        vm.round = round;
+
         // Execute the start function
         vm.start();
 
@@ -75,6 +77,7 @@
         function saveMeasurementResult(measurement) {
             var measurementResult = measurementResultService.calcAndGetResults(vm.noises);
             measurementResult.measurement = measurement.id;
+            measurementResult.isMainResult = true;
             return measurementResultService.add(measurementResult);
         }
 
@@ -164,10 +167,14 @@
         function selectFile() {
             angular.element("#fileSelector").click();
         }
+
+        function round(number) {
+            return mathService.to_exponential_2(number);
+        }
     }
 
     angular.module("noiseApp").controller("homeController", homeController);
     homeController.$inject = ["$scope", "blockUI", "measurementService",
-        "measurementRecordService", "measurementResultService"];
+        "measurementRecordService", "measurementResultService", "mathService"];
 
 })();

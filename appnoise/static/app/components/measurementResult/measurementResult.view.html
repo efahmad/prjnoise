@@ -1,3 +1,8 @@
+<style type="text/css">
+    .gridViewContainer .table tr {
+        cursor: pointer;
+    }
+</style>
 <div class="container-fluid">
 
     <!-- No Data Hint -->
@@ -19,22 +24,70 @@
                         <thead>
                         <tr>
                             <th>ردیف</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <th>average</th>
+                            <th>rms</th>
+                            <th>si</th>
+                            <th>li</th>
+                            <th>sv</th>
+                            <th>rn</th>
+                            <th>icorr</th>
+                            <th>mpy</th>
+                            <!--<th>Amperage Filter Min</th>-->
+                            <!--<th>Amperage Filter Max</th>-->
+                            <!--<th>Voltage Filter Min</th>-->
+                            <!--<th>Voltage Filter Max</th>-->
+                            <th>نتیجه اصلی</th>
+                            <th>نمودارها</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="row in vm.measurementResults">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{row.rowNum}}</td>
+                            <td>{{vm.round(row.average)}}</td>
+                            <td>{{vm.round(row.rms)}}</td>
+                            <td>{{vm.round(row.si)}}</td>
+                            <td>{{vm.round(row.li)}}</td>
+                            <td>{{vm.round(row.sv)}}</td>
+                            <td>{{vm.round(row.rn)}}</td>
+                            <td>{{vm.round(row.icorr)}}</td>
+                            <td>{{vm.round(row.mpy)}}</td>
+                            <!--<td>{{row.amperageFilterMin}}</td>-->
+                            <!--<td>{{row.amperageFilterMax}}</td>-->
+                            <!--<td>{{row.voltageFilterMin}}</td>-->
+                            <!--<td>{{row.voltageFilterMax}}</td>-->
+                            <td>
+                                <i ng-if="row.isMainResult" class="fa fa-check-square-o" aria-hidden="true"></i>
+                                <i ng-if="!row.isMainResult" class="fa fa-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info btn-sm"
+                                        ng-click="vm.showVoltageDiagram(row)">
+                                    <i class="fa fa-line-chart left-margin-5" aria-hidden="true"></i>
+                                    <span>پتانسیل</span>
+                                </button>
+                                <button type="button" class="btn btn-info btn-sm"
+                                        ng-click="vm.showAmperageDiagram(row)">
+                                    <i class="fa fa-area-chart left-margin-5" aria-hidden="true"></i>
+                                    <span>جریان</span>
+                                </button>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Voltage diagram -->
+    <div class="row row-bottom-space" ng-if="vm.view.voltage">
+        <nvd3 options="vm.voltageOptions" data="vm.voltageData" style="direction: ltr;"
+              class="with-3d-shadow with-transitions"></nvd3>
+    </div>
+
+    <!-- Amperage Diagram -->
+    <div class="row row-bottom-space" ng-if="vm.view.amperage">
+        <nvd3 options="vm.amperageOptions" data="vm.amperageData" style="direction: ltr;"
+              class="with-3d-shadow with-transitions"></nvd3>
     </div>
 </div>

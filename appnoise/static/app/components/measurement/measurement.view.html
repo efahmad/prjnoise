@@ -65,7 +65,8 @@
                                         class="btn btn-info btn-sm"
                                         title="مشاهده نتایج"
                                         ng-click="vm.viewResults(row)">
-                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                    <i class="fa fa-book left-margin-5" aria-hidden="true"></i>
+                                    <span>نتایج</span>
                                 </button>
                                 <button type="button"
                                         class="btn btn-danger btn-sm"
@@ -79,7 +80,8 @@
                                         on-confirm="vm.deleteFile(row.id)"
                                         confirm-button-type="danger"
                                         cancel-button-type="default">
-                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                    <i class="fa fa-times left-margin-5" aria-hidden="true"></i>
+                                    <span>حذف</span>
                                 </button>
                             </td>
                         </tr>
@@ -196,129 +198,7 @@
                     </div>
                 </div>
 
-                <div ng-class="{'tab-pane fade in active': vm.activeTab === 2, 'tab-pane fade': vm.activeTab !== 2}">
-                    <div class="row row-top-space row-bottom-space">
-                        <div class="col-md-12">
 
-                            <table class="resultTable">
-                                <tr>
-                                    <td class="keyTd">
-                                        <h4>
-                                            <span class="label label-primary">Average</span>
-                                        </h4>
-                                    </td>
-                                    <td class="valueTd">
-                                        <h4>
-                                            <span class="label label-info">{{vm.results.average}}</span>
-                                        </h4>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="keyTd">
-                                        <h4>
-                                            <span class="label label-primary">RMS</span>
-                                        </h4>
-                                    </td>
-                                    <td class="valueTd">
-                                        <h4>
-                                            <span class="label label-info">{{vm.results.rms}}</span>
-                                        </h4>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="keyTd">
-                                        <h4>
-                                            <span class="label label-primary">SI</span>
-                                        </h4>
-                                    </td>
-                                    <td class="valueTd">
-                                        <h4>
-                                            <span class="label label-info">{{vm.results.si}}</span>
-                                        </h4>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="keyTd">
-                                        <h4>
-                                            <span class="label label-primary">LI</span>
-                                        </h4>
-                                    </td>
-                                    <td class="valueTd">
-                                        <h4>
-                                            <span class="label label-info">{{vm.results.li}}</span>
-                                        </h4>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="keyTd">
-                                        <h4>
-                                            <span class="label label-primary">SV</span>
-                                        </h4>
-                                    </td>
-                                    <td class="valueTd">
-                                        <h4>
-                                            <span class="label label-info">{{vm.results.sv}}</span>
-                                        </h4>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="keyTd">
-                                        <h4>
-                                            <span class="label label-primary">RN</span>
-                                        </h4>
-                                    </td>
-                                    <td class="valueTd">
-                                        <h4>
-                                            <span class="label label-info">{{vm.results.rn}}</span>
-                                        </h4>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="keyTd">
-                                        <h4>
-                                            <span class="label label-primary">ICORR</span>
-                                        </h4>
-                                    </td>
-                                    <td class="valueTd">
-                                        <h4>
-                                            <span class="label label-info">{{vm.results.icorr}}</span>
-                                        </h4>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="keyTd">
-                                        <h4>
-                                            <span class="label label-primary">MPY</span>
-                                        </h4>
-                                    </td>
-                                    <td class="valueTd">
-                                        <h4>
-                                            <span class="label label-info">{{vm.results.mpy}}</span>
-                                        </h4>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div ng-class="{'tab-pane fade in active': vm.activeTab === 3, 'tab-pane fade': vm.activeTab !== 3}">
-                    <div class="row row-top-space row-bottom-space" style="direction: ltr;">
-                        <div class="col-md-12">
-                            <nvd3 options="vm.voltageOptions" data="vm.voltageData"
-                                  class="with-3d-shadow with-transitions"></nvd3>
-                        </div>
-                    </div>
-                </div>
-
-                <div ng-class="{'tab-pane fade in active': vm.activeTab === 4, 'tab-pane fade': vm.activeTab !== 4}">
-                    <div class="row row-top-space row-bottom-space" style="direction: ltr;">
-                        <div class="col-md-12">
-                            <nvd3 options="vm.amperageOptions" data="vm.amperageData"
-                                  class="with-3d-shadow with-transitions"></nvd3>
-                        </div>
-                    </div>
-                </div>
 
             </div>
         </div>

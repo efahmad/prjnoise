@@ -19,4 +19,5 @@ class MeasurementRecordSerializer(ModelSerializer):
 class MeasurementResultSerializer(ModelSerializer):
     class Meta:
         model = MeasurementResult
-        fields = ('id', 'measurement', 'average', 'rms', 'si', 'li', 'sv', 'rn', 'icorr', 'mpy')
+        fields = ('id', 'measurement', 'average', 'rms', 'si', 'li', 'sv', 'rn', 'icorr', 'mpy', 'amperageFilterMin',
+                  'amperageFilterMax', 'voltageFilterMin', 'voltageFilterMax', 'isMainResult')

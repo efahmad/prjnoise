@@ -29,7 +29,7 @@ class MeasurementList(APIView):
 
 class MeasurementDetail(APIView):
     """
-    Retrieve, update or delete a snippet instance.
+    Retrieve, update or delete a Measurement instance.
     """
 
     def get_object(self, pk):

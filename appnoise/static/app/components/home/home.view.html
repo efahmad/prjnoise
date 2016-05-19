@@ -50,11 +50,11 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="row in vm.noises">
-                            <td class="numericTd" ng-bind="row.rowNum"></td>
-                            <td class="numericTd" ng-bind="row.time"></td>
-                            <td class="numericTd" ng-bind="row.temp"></td>
-                            <td class="numericTd" ng-bind="row.voltage"></td>
-                            <td class="numericTd" ng-bind="row.amperage"></td>
+                            <td class="numericTd">{{row.rowNum}}</td>
+                            <td class="numericTd">{{row.time}}</td>
+                            <td class="numericTd">{{row.temp}}</td>
+                            <td class="numericTd">{{vm.round(row.voltage)}}</td>
+                            <td class="numericTd">{{vm.round(row.amperage)}}</td>
                             <!--<td ng-bind="row.amperageSquare"></td>-->
                         </tr>
                         </tbody>
