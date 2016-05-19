@@ -5,7 +5,8 @@
 (function () {
     'use strict';
 
-    function homeController($scope, blockUI, measurementService, measurementRecordService) {
+    function homeController($scope, blockUI, measurementService, measurementRecordService,
+                            measurementResultService) {
 
         //==== Variables ====//
         var vm = this;
@@ -17,6 +18,7 @@
         //==== Function Definitions ====//
         vm.saveMeasurement = saveMeasurement;
         vm.saveMeasurementRecords = saveMeasurementRecords;
+        vm.saveMeasurementResult = saveMeasurementResult;
         vm.saveData = saveData;
         vm.start = start;
         vm.clearForm = clearForm;
@@ -37,10 +39,15 @@
                 .success(function (data, status) {
                     // Save measurement records
                     vm.saveMeasurementRecords(data).success(function (recordData, recordStatus) {
-                        // Hide save button
-                        vm.showSaveButton = false;
-                        toastr.success("ذخیره داده ها با موفقیت انجام شد");
-                        vm.clearForm();
+                        // Save a default (main) measurement result
+                        vm.saveMeasurementResult(data).success(function () {
+                            // Hide save button
+                            vm.showSaveButton = false;
+                            toastr.success("ذخیره داده ها با موفقیت انجام شد");
+                            vm.clearForm();
+                        }).error(function () {
+                            toastr.error("خطا در عملیات ذخیره سازی");
+                        });
                     }).error(function (data, status) {
                         toastr.error("خطا در عملیات ذخیره سازی");
                     });
@@ -63,6 +70,12 @@
                 });
             }
             return measurementRecordService.addMany(temp);
+        }
+
+        function saveMeasurementResult(measurement) {
+            var measurementResult = measurementResultService.calcAndGetResults(vm.noises);
+            measurementResult.measurement = measurement.id;
+            return measurementResultService.add(measurementResult);
         }
 
         function clearForm() {
@@ -154,6 +167,7 @@
     }
 
     angular.module("noiseApp").controller("homeController", homeController);
-    homeController.$inject = ["$scope", "blockUI", "measurementService", "measurementRecordService"];
+    homeController.$inject = ["$scope", "blockUI", "measurementService",
+        "measurementRecordService", "measurementResultService"];
 
 })();

@@ -13,6 +13,9 @@
                 }).when("/measurements", {
                     templateUrl: '/static/app/components/measurement/measurement.view.html',
                     controller: 'measurementController as vm'
+                }).when("/measurementResults", {
+                    templateUrl: "/static/app/components/measurementResult/measurementResult.view.html",
+                    controller: "measurementResultController as vm"
                 }).otherwise({
                     redirectTo: '/'
                 });;

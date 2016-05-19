@@ -44,16 +44,14 @@
     <div class="row row-top-space row-bottom-space" ng-if="vm.measurements.length > 0">
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading"></div>
                 <div class="panel-body gridViewContainer">
-                    <table class="table table-hover">
+                    <table class="table table-striped table-bordered">
                         <thead>
                         <tr>
                             <th>ردیف</th>
                             <th>عنوان</th>
                             <th>تاریخ</th>
-                            <th>مشاهده نتایج</th>
-                            <th>حذف فایل</th>
+                            <th>عملیات</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -62,10 +60,16 @@
                             <td ng-bind="row.title"></td>
                             <td style="direction: ltr;"
                                 ng-bind="vm.dateTimeService.toTehranTimeZone(row.measurement_date)"></td>
-                            <td></td>
                             <td>
                                 <button type="button"
-                                        class="btn btn-danger"
+                                        class="btn btn-info btn-sm"
+                                        title="مشاهده نتایج"
+                                        ng-click="vm.viewResults(row)">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </button>
+                                <button type="button"
+                                        class="btn btn-danger btn-sm"
+                                        style="margin-right: 10px;"
                                         mwl-confirm
                                         title="{{ 'حذف فایل' }}"
                                         message="{{ 'فایل مورد نظر و تمامی داده ها و نتایج آن حذف خواهد شد. ادامه می دهید ؟' }}"

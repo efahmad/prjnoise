@@ -1,0 +1,40 @@
+<div class="container-fluid">
+
+    <!-- No Data Hint -->
+    <div class="row row-bottom-space" ng-if="!vm.measurementResults || vm.measurementResults.length === 0">
+        <div class="col-md-12">
+            <div class="alert alert-warning">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true" style="margin-left: 10px;"></i>
+                <span>نتیجه ای برای این فایل (اندازه گیری) ثبت نشده است</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Measurement Results Data Grid -->
+    <div class="row row-bottom-space" ng-if="vm.measurementResults.length > 0">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body gridViewContainer">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>ردیف</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="row in vm.measurementResults">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

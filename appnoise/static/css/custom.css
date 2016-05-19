@@ -52,6 +52,11 @@ td {
 .gridViewContainer {
     height: 300px;
     overflow-y: scroll;
+    padding: 0;
+}
+
+.gridViewContainer .table tr:hover{
+    background-color: #d9edf7;
 }
 
 .numericTd {

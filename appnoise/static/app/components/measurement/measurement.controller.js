@@ -1,7 +1,7 @@
 (function () {
     "use strict";
 
-    function measurementController(measurementService, dateTimeService) {
+    function measurementController($location, measurementService, dateTimeService, tempStorageService) {
 
         var vm = this;
         vm.header = "نتایج پیشین";
@@ -95,6 +95,7 @@
         vm.resetFilter = resetFilter;
         vm.clearForm = clearForm;
         vm.deleteFile = deleteFile;
+        vm.viewResults = viewResults;
         vm.start = start;
 
         // Start the app
@@ -289,9 +290,15 @@
                 toastr.error("خطا در حذف فایل");
             });
         }
+
+        function viewResults(measurement) {
+            // Save measurement to temp storage to retrieve it in the target view
+            tempStorageService.saveMeasurement(measurement);
+            $location.path('/measurementResults');
+        }
     }
 
     angular.module("noiseApp").controller("measurementController", measurementController);
-    measurementController.$inject = ["measurementService", "dateTimeService"];
+    measurementController.$inject = ["$location", "measurementService", "dateTimeService", "tempStorageService"];
 
 })();
