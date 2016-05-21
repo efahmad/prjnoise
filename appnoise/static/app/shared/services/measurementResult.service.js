@@ -1,4 +1,4 @@
-(function() {
+(function () {
     "use strict";
 
     function measurementResultService($http) {
@@ -16,20 +16,26 @@
             });
         }
 
-        function calcAndGetResults(noisesData) {
+        function calcAndGetResults(amperageFilteredRecords, voltageFilteredRecords) {
             var amperageSquareSum = 0,
                 amperageArray = [],
                 voltageArray = [],
                 tempResult = {};
 
-            for (var i = 0; i < noisesData.length; i++) {
-                amperageArray.push(noisesData[i].amperage);
-                voltageArray.push(noisesData[i].voltage);
-
-                amperageSquareSum += Math.pow(noisesData[i].amperage, 2);
+            if (!voltageFilteredRecords) {
+                voltageFilteredRecords = amperageFilteredRecords;
             }
 
-            tempResult.average = amperageSquareSum / noisesData.length;
+            for (var i = 0; i < amperageFilteredRecords.length; i++) {
+                amperageArray.push(amperageFilteredRecords[i].amperage);
+                amperageSquareSum += Math.pow(amperageFilteredRecords[i].amperage, 2);
+            }
+
+            for (var i = 0; i < voltageFilteredRecords.length; i++) {
+                voltageArray.push(voltageFilteredRecords[i].voltage);
+            }
+
+            tempResult.average = amperageSquareSum / amperageFilteredRecords.length;
             tempResult.rms = Math.sqrt(tempResult.average);
             tempResult.si = math.std(amperageArray);
             tempResult.li = tempResult.si / tempResult.rms;
@@ -38,8 +44,6 @@
             tempResult.icorr = 0.026 / tempResult.rn;
             // Convert & Round icorr to 3 decimal places
             var temp = tempResult.icorr * Math.pow(10, 6);
-            temp = Math.floor(temp * 1000) / 1000;
-            temp = Math.ceil(temp * 1000) / 1000;
             tempResult.mpy = 0.128 * temp * 55.8 / 2 / 7.8;
             return tempResult;
         }

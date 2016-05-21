@@ -15,6 +15,17 @@
         </div>
     </div>
 
+    <!-- Add new Filter -->
+    <div class="row row-bottom-space">
+        <div class="col-md-12 text-left">
+            <button type="button" class="btn btn-info"
+                    ng-click="vm.addNewFilter()">
+                <i class="fa fa-plus left-margin-5" aria-hidden="true"></i>
+                <span>افزودن فیلتر</span>
+            </button>
+        </div>
+    </div>
+
     <!-- Measurement Results Data Grid -->
     <div class="row row-bottom-space" ng-if="vm.measurementResults.length > 0">
         <div class="col-md-12">
@@ -38,10 +49,14 @@
                             <!--<th>Voltage Filter Max</th>-->
                             <th>نتیجه اصلی</th>
                             <th>نمودارها</th>
+                            <th>فیلتر ها</th>
+                            <th>عملیات</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="row in vm.measurementResults">
+                        <tr ng-repeat="row in vm.measurementResults"
+                            ng-class="{'selectedRow': vm.selectedRowId === row.id}"
+                            ng-click="vm.selectRow(row)">
                             <td>{{row.rowNum}}</td>
                             <td>{{vm.round(row.average)}}</td>
                             <td>{{vm.round(row.rms)}}</td>
@@ -61,14 +76,36 @@
                             </td>
                             <td>
                                 <button type="button" class="btn btn-info btn-sm"
-                                        ng-click="vm.showVoltageDiagram(row)">
+                                        ng-click="vm.showVoltageDiagram(row)" title="نمودار پتانسیل">
                                     <i class="fa fa-line-chart left-margin-5" aria-hidden="true"></i>
                                     <span>پتانسیل</span>
                                 </button>
                                 <button type="button" class="btn btn-info btn-sm"
-                                        ng-click="vm.showAmperageDiagram(row)">
+                                        ng-click="vm.showAmperageDiagram(row)" title="نمودار جریان">
                                     <i class="fa fa-area-chart left-margin-5" aria-hidden="true"></i>
                                     <span>جریان</span>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info btn-sm"
+                                        ng-if="vm.hasFilter(row)"
+                                        ng-click="vm.showAmperageDiagram(row)" title="نمایش فیلتر های اعمال شده">
+                                    <i class="fa fa-filter" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button"
+                                        class="btn btn-danger btn-sm"
+                                        mwl-confirm
+                                        title="{{ 'حذف نتیجه' }}"
+                                        message="{{ 'نتیجه مورد نظر حذف خواهد شد. ادامه می دهید ؟' }}"
+                                        confirm-text="{{ 'بله' }}"
+                                        cancel-text="{{ 'انصراف' }}"
+                                        placement="{{ 'top' }}"
+                                        on-confirm=""
+                                        confirm-button-type="danger"
+                                        cancel-button-type="default">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
                                 </button>
                             </td>
                         </tr>
@@ -90,4 +127,5 @@
         <nvd3 options="vm.amperageOptions" data="vm.amperageData" style="direction: ltr;"
               class="with-3d-shadow with-transitions"></nvd3>
     </div>
+
 </div>

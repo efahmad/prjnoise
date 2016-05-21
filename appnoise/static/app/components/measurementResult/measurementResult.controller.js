@@ -4,7 +4,8 @@
 (function () {
     "use strict";
 
-    function measurementResultController($location, tempStorageService, measurementService, mathService) {
+    function measurementResultController($location, tempStorageService, measurementService,
+                                         mathService, dateTimeService) {
 
         //==== variables ====
         var vm = this;
@@ -84,6 +85,7 @@
             amperage: false,
             filters: false
         };
+        vm.selectedRowId = -1;
 
 
         //==== function definitions ====
@@ -95,6 +97,9 @@
         vm.showVoltageDiagram = showVoltageDiagram;
         vm.showAmperageDiagram = showAmperageDiagram;
         vm.setView = setView;
+        vm.selectRow = selectRow;
+        vm.hasFilter = hasFilter;
+        vm.addNewFilter = addNewFilter;
 
         // Start the app
         vm.start();
@@ -112,7 +117,8 @@
             }
 
             // Set view title
-            angular.element("#viewTitle").html("نتایج اندازه گیری " + vm.measurement.title);
+            angular.element("#viewTitle").html("نتایج اندازه گیری " +
+                dateTimeService.toTehranTimeZone(vm.measurement.measurement_date));
 
             // Retrieve measurement records
             vm.getMeasurementRecords(vm.measurement.id).then(function (response) {
@@ -153,7 +159,7 @@
         }
 
         function round(number) {
-            return mathService.to_exponential_2(number);
+            return mathService.to_exponential_3(number);
         }
 
         function getDataForDiagram(noisesData, columnName, key, color) {
@@ -180,12 +186,16 @@
             vm.voltageData = vm.getDataForDiagram(vm.measurementRecords, "voltage", "Voltage Wave", "#2ca02c");
             // Go to voltage view
             vm.setView("voltage");
+            // Set selected row to this row
+            vm.selectRow(row);
         }
 
         function showAmperageDiagram(row) {
             vm.amperageData = vm.getDataForDiagram(vm.measurementRecords, "amperage", "Amperage Wave", "#2ca02c");
             // Go to voltage view
             vm.setView("amperage");
+            // Set selected row to this row
+            vm.selectRow(row);
         }
 
         function setView(viewType) {
@@ -197,9 +207,25 @@
             //
             vm.view[viewType] = true;
         }
+
+        function selectRow(row) {
+            vm.selectedRowId = row.id;
+        }
+
+        function hasFilter(row) {
+            return (!isNaN(parseFloat(row.amperageFilterMin)) && !isNaN(parseFloat(row.amperageFilterMax))) ||
+                (!isNaN(parseFloat(row.voltageFilterMin)) && !isNaN(parseFloat(row.voltageFilterMax)));
+
+        }
+
+        function addNewFilter() {
+            // Save measurement to temp storage to retrieve it in the target view
+            tempStorageService.saveMeasurementRecordsArray(angular.copy(vm.measurementRecords));
+            $location.path('/measurementResults/addFilter');
+        }
     }
 
     angular.module("noiseApp").controller("measurementResultController", measurementResultController);
     measurementResultController.$inject = ["$location", "tempStorageService", "measurementService",
-        "mathService"];
+        "mathService", "dateTimeService"];
 })();

@@ -7,7 +7,7 @@
     function mathService() {
         var service = {
             round: round,
-            to_exponential_2: to_exponential_2
+            to_exponential_3: to_exponential_3
         };
         return service;
 
@@ -16,8 +16,8 @@
          * @param number The float number which we round
          * @returns {number} The rounded number
          */
-        function to_exponential_2(number) {
-            return number.toExponential(2);
+        function to_exponential_3(number) {
+            return number.toExponential(3);
         }
 
         /**

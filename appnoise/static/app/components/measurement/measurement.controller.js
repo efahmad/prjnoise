@@ -19,12 +19,9 @@
 
         //==== Function Definitions ====//
         vm.getMeasurements = getMeasurements;
-        vm.setActiveTab = setActiveTab;
-        vm.onMeasurementSelected = onMeasurementSelected;
         vm.calcResults = calcResults;
         vm.applyFilters = applyFilters;
         vm.resetFilter = resetFilter;
-        vm.clearForm = clearForm;
         vm.deleteFile = deleteFile;
         vm.viewResults = viewResults;
         vm.start = start;
@@ -51,34 +48,6 @@
                 toastr.error("خطا در دریافت لیست فایل ها");
             });
         }
-
-        function setActiveTab(tabNumber) {
-            vm.activeTab = tabNumber;
-        }
-
-        function onMeasurementSelected(id) {
-            // Clear form
-            vm.clearForm();
-
-            // Get records of measurement
-            measurementService.getRecords(id).success(function (data, status) {
-                vm.noises = data;
-                for (var i = 0; i < vm.noises.length; i++) {
-                    vm.noises[i].rowNum = i + 1;
-                }
-
-                // Calculate results
-                vm.results = vm.calcResults(vm.noises);
-
-                
-
-
-            }).error(function (data, status) {
-                toastr.error("خطا در دریافت رکورد های فایل");
-            });
-        }
-
-        
 
         function calcResults(noisesData) {
             var amperageSquareSum = 0,
@@ -169,15 +138,6 @@
                     vm.amperageData = vm.getDataForDiagram(vm.noises, "amperage", "Amperage Wave", "#2ca02c");
                 }
             }
-        }
-
-        function clearForm() {
-            vm.isVoltageFiltered = false;
-            vm.voltageFilterMin = undefined;
-            vm.voltageFilterMax = undefined;
-            vm.isAmperageFiltered = false;
-            vm.amperageFilterMin = undefined;
-            vm.amperageFilterMax = undefined;
         }
 
         /**

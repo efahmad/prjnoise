@@ -59,10 +59,14 @@ td {
     padding: 0;
 }
 
-.gridViewContainer .table tr:hover{
+.gridViewContainer .table tr:hover {
     background-color: #d9edf7;
 }
 
 .numericTd {
     direction: ltr;
+}
+
+.selectedRow {
+    background-color: #f7ecb5 !important;
 }

@@ -1,0 +1,160 @@
+<style type="text/css">
+    input.filterUI {
+        width: 75px !important;
+        direction: ltr;
+    }
+
+    .resultLabel {
+        width: 75px;
+        display: block !important;
+        line-height: 2;
+    }
+</style>
+<div class="container-fluid">
+
+    <!-- Filters -->
+    <div class="row row-bottom-space">
+
+        <!-- Voltage filter -->
+        <div class="col-md-6">
+            <span>فیلتر پتانسیل</span>
+            <hr/>
+            <div class="form-inline row-bottom-space">
+                <label style="margin-left: 10px;">از</label>
+                <input type="text"
+                       ng-model="vm.voltageFilterMin"
+                       class="form-control filterUI"/>
+                <label style="margin-right: 10px; margin-left: 10px;">تا</label>
+                <input type="text"
+                       ng-model="vm.voltageFilterMax"
+                       class="form-control filterUI"/>
+
+                <button type="button"
+                        ng-click="vm.applyVoltageFilter()"
+                        class="btn btn-info" style="margin-right: 10px;">اعمال فیلتر
+                </button>
+                <button type="button"
+                        ng-if="vm.filteredVoltageRecords"
+                        class="btn btn-danger"
+                        style="margin-right: 10px;"
+                        ng-click="vm.removeVoltageFilter()">حذف فیلتر
+                </button>
+            </div>
+            <hr/>
+        </div>
+
+        <!-- Amperage filter -->
+        <div class="col-md-6">
+            <span>فیلتر جریان</span>
+            <hr/>
+            <div class="form-inline">
+                <label style="margin-left: 10px;">از</label>
+                <input type="text"
+                       ng-model="vm.amperageFilterMin"
+                       class="form-control filterUI"/>
+                <label style="margin-right: 10px; margin-left: 10px;">تا</label>
+                <input type="text"
+                       ng-model="vm.amperageFilterMax"
+                       class="form-control filterUI"/>
+
+                <button type="button"
+                        ng-click="vm.applyAmperageFilter()"
+                        class="btn btn-info" style="margin-right: 10px;">اعمال فیلتر
+                </button>
+                <button type="button"
+                        ng-if="vm.filteredAmperageRecords"
+                        class="btn btn-danger"
+                        style="margin-right: 10px;"
+                        ng-click="vm.removeAmperageFilter()">حذف فیلتر
+                </button>
+            </div>
+            <hr/>
+        </div>
+
+    </div>
+
+    <!-- Diagrams -->
+    <div class="row row-bottom-space">
+
+        <!-- Voltage diagram -->
+        <div class="col-md-6">
+            <nvd3 options="vm.voltageOptions" data="vm.voltageData" style="direction: ltr;"
+                  class="with-3d-shadow with-transitions"></nvd3>
+        </div>
+
+        <!-- amperage diagram -->
+        <div class="col-md-6">
+            <nvd3 options="vm.amperageOptions" data="vm.amperageData" style="direction: ltr;"
+                  class="with-3d-shadow with-transitions"></nvd3>
+        </div>
+
+    </div>
+
+    <!-- Parameters -->
+    <div class="row row-bottom-space">
+        <!-- -->
+        <div class="col-md-offset-1 col-md-4">
+            <div class="row">
+                <hr/>
+                <div class="col-md-6">
+                    <div class="label label-success resultLabel">Average</div>
+                </div>
+                <div class="col-md-6 text-left">{{vm.round(vm.results.average)}}</div>
+            </div>
+            <div class="row">
+                <hr/>
+                <div class="col-md-6">
+                    <div class="label label-success resultLabel">Rms</div>
+                </div>
+                <div class="col-md-6 text-left">{{vm.round(vm.results.rms)}}</div>
+            </div>
+            <div class="row">
+                <hr/>
+                <div class="col-md-6">
+                    <div class="label label-success resultLabel">Si</div>
+                </div>
+                <div class="col-md-6 text-left">{{vm.round(vm.results.si)}}</div>
+            </div>
+            <div class="row">
+                <hr/>
+                <div class="col-md-6">
+                    <div class="label label-success resultLabel">Sv</div>
+                </div>
+                <div class="col-md-6 text-left">{{vm.round(vm.results.sv)}}</div>
+            </div>
+            <div class="row">
+                <hr/>
+                <div class="col-md-6">
+                    <div class="label label-success resultLabel">Icorr</div>
+                </div>
+                <div class="col-md-6 text-left">{{vm.round(vm.results.icorr)}}</div>
+            </div>
+        </div>
+
+        <!-- Main parameters -->
+        <div class="col-md-offset-2 col-md-4">
+            <div class="row">
+                <hr/>
+                <div class="col-md-6">
+                    <div class="label label-danger resultLabel">Li</div>
+                </div>
+                <div class="col-md-6 text-left">{{vm.round(vm.results.li)}}</div>
+            </div>
+            <div class="row">
+                <hr/>
+                <div class="col-md-6">
+                    <div class="label label-danger resultLabel">Rn</div>
+                </div>
+                <div class="col-md-6 text-left">{{vm.round(vm.results.rn)}}</div>
+            </div>
+            <div class="row">
+                <hr/>
+                <div class="col-md-6">
+                    <div class="label label-danger resultLabel">Mpy</div>
+                </div>
+                <div class="col-md-6 text-left">{{vm.round(vm.results.mpy)}}</div>
+            </div>
+        </div>
+    </div>
+
+</div>

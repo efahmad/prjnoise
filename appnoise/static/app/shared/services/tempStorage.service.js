@@ -8,18 +8,40 @@
 
         var service = {
             saveMeasurement: saveMeasurement,
-            getMeasurement: getMeasurement
+            getMeasurement: getMeasurement,
+            saveMeasurementResult: saveMeasurementResult,
+            getMeasurementResult: getMeasurementResult,
+            saveMeasurementRecordsArray: saveMeasurementRecordsArray,
+            getMeasurementRecordsArray: getMeasurementRecordsArray
         };
         return service;
 
         var measurement = {};
+        var measurementResult;
+        var measurementRecordsArray;
 
         function saveMeasurement(data) {
             measurement = data;
         }
-        
-        function getMeasurement(){
+
+        function getMeasurement() {
             return measurement;
+        }
+
+        function saveMeasurementResult(data) {
+            measurementResult = data;
+        }
+
+        function getMeasurementResult() {
+            return measurementResult;
+        }
+
+        function saveMeasurementRecordsArray(data) {
+            measurementRecordsArray = data;
+        }
+
+        function getMeasurementRecordsArray() {
+            return measurementRecordsArray;
         }
 
     }

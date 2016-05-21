@@ -12,19 +12,6 @@
         padding: 5px;
     }
 
-    .resultTable .keyTd {
-        text-align: left;
-    }
-
-    .resultTable .valueTd {
-        text-align: right;
-    }
-
-    input.filterUI {
-        width: 75px !important;
-        direction: ltr;
-    }
-
     hr {
         border-color: gray;
     }
@@ -88,118 +75,6 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Filters -->
-    <div class="row row-bottom-space" ng-if="vm.noises.length > 0">
-        <div class="col-md-3"></div>
-        <div class="col-md-6 text-center">
-
-            <hr/>
-
-            <div class="form-inline row-bottom-space">
-                <label style="width: 115px; text-align: right;">فلتر پتانسیل از</label>
-                <input ng-disabled="vm.isVoltageFiltered"
-                       ng-model="vm.voltageFilterMin" type="text" class="form-control filterUI"
-                       style="margin-right: 10px;"/>
-                <label style="margin-right: 10px; margin-left: 10px;">تا</label>
-                <input ng-disabled="vm.isVoltageFiltered"
-                       ng-model="vm.voltageFilterMax" type="text"
-                       class="form-control filterUI"/>
-
-                <div ng-if="!vm.isVoltageFiltered"
-                     ng-click="vm.applyFilters(vm.voltageFilterMin, vm.voltageFilterMax, 'voltage')"
-                     class="btn btn-default" style="margin-right: 10px;">اعمال فیلتر
-                </div>
-                <div ng-if="vm.isVoltageFiltered"
-                     class="btn btn-danger"
-                     style="margin-right: 10px;"
-                     ng-click="vm.resetFilter('voltage')">حذف فیلتر
-                </div>
-            </div>
-            <div class="form-inline">
-                <label style="width: 115px; text-align: right;">فیلتر شدت جریان از</label>
-                <input ng-disabled="vm.isAmperageFiltered"
-                       ng-model="vm.amperageFilterMin" type="text" class="form-control filterUI"
-                       style="margin-right: 10px;"/>
-                <label style="margin-right: 10px; margin-left: 10px;">تا</label>
-                <input ng-disabled="vm.isAmperageFiltered"
-                       ng-model="vm.amperageFilterMax" type="text"
-                       class="form-control filterUI"/>
-
-                <div ng-if="!vm.isAmperageFiltered"
-                     ng-click="vm.applyFilters(vm.amperageFilterMin, vm.amperageFilterMax, 'amperage')"
-                     class="btn btn-default" style="margin-right: 10px;">اعمال فیلتر
-                </div>
-                <div ng-if="vm.isAmperageFiltered"
-                     class="btn btn-danger"
-                     style="margin-right: 10px;"
-                     ng-click="vm.resetFilter('amperage')">حذف فیلتر
-                </div>
-            </div>
-
-            <hr/>
-
-        </div>
-        <div class="col-md-3"></div>
-    </div>
-
-    <!-- Tab Panel -->
-    <div class="row row-space-bottom" ng-if="vm.noises && vm.noises.length > 0">
-        <div class="col-md-12">
-            <!-- Tab Headers -->
-            <ul class="nav nav-tabs">
-                <li ng-class="{'active': vm.activeTab === 1}"><a data-toggle="tab" href=""
-                                                                 ng-click="vm.setActiveTab(1)">داده های اولیه</a>
-                </li>
-                <li ng-class="{'active': vm.activeTab === 2}"><a data-toggle="tab" href=""
-                                                                 ng-click="vm.setActiveTab(2)">نتایج</a>
-                </li>
-                <li ng-class="{'active': vm.activeTab === 3}"><a data-toggle="tab" href=""
-                                                                 ng-click="vm.setActiveTab(3)">نمودار ولتاژ</a>
-                </li>
-                <li ng-class="{'active': vm.activeTab === 4}"><a data-toggle="tab" href=""
-                                                                 ng-click="vm.setActiveTab(4)">نمودار شدت جریان</a>
-                </li>
-            </ul>
-
-            <!-- Tab Contents -->
-            <div class="tab-content">
-
-                <div ng-class="{'tab-pane fade in active': vm.activeTab === 1, 'tab-pane fade': vm.activeTab !== 1}">
-                    <!-- Data Grid -->
-                    <div class="row row-top-space row-bottom-space">
-                        <div class="col-md-12">
-                            <div class="gridViewContainer">
-                                <table class="noisesTable table table-striped table-bordered table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>ردیف</th>
-                                        <th>زمان</th>
-                                        <th>دما</th>
-                                        <th>ولتاژ</th>
-                                        <th>جریان</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="row in vm.noises">
-                                        <td ng-bind="row.rowNum"></td>
-                                        <td ng-bind="row.time"></td>
-                                        <td ng-bind="row.temp"></td>
-                                        <td ng-bind="row.voltage"></td>
-                                        <td ng-bind="row.amperage"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
             </div>
         </div>
     </div>
