@@ -10,18 +10,9 @@
         vm.measurements = [];
         vm.noises = [];
 
-        vm.voltageFilterMin = undefined;
-        vm.voltageFilterMax = undefined;
-        vm.amperageFilterMin = undefined;
-        vm.amperageFilterMax = undefined;
-        vm.isVoltageFiltered = false;
-        vm.isAmperageFiltered = false;
-
         //==== Function Definitions ====//
         vm.getMeasurements = getMeasurements;
         vm.calcResults = calcResults;
-        vm.applyFilters = applyFilters;
-        vm.resetFilter = resetFilter;
         vm.deleteFile = deleteFile;
         vm.viewResults = viewResults;
         vm.start = start;
@@ -75,69 +66,6 @@
             temp = Math.ceil(temp * 1000) / 1000;
             tempResult.mpy = 0.128 * temp * 55.8 / 2 / 7.8;
             return tempResult;
-        }
-
-        function applyFilters(filterMin, filterMax, filterAttr) {
-            var filterMin = parseFloat(filterMin),
-                filterMax = parseFloat(filterMax),
-                filteredNoises = [];
-
-            if (isNaN(filterMin) || isNaN(filterMax)) {
-                toastr.error("مقدار فیلتر نامعتبر است");
-                return;
-            }
-
-            if (filterAttr === "voltage")
-                vm.isVoltageFiltered = true;
-            if (filterAttr === "amperage")
-                vm.isAmperageFiltered = true;
-
-            for (var i = 0; i < vm.noises.length; i++) {
-                if (vm.noises[i][filterAttr] <= filterMax && vm.noises[i][filterAttr] >= filterMin) {
-                    filteredNoises.push(vm.noises[i]);
-                }
-            }
-
-            vm.results = vm.calcResults(filteredNoises);
-
-            // Prepare data for diagrams
-            vm.voltageData = vm.getDataForDiagram(filteredNoises, "voltage", "Voltage Wave", "#2ca02c");
-            vm.amperageData = vm.getDataForDiagram(filteredNoises, "amperage", "Amperage Wave", "#2ca02c");
-            // show save button
-            vm.showSaveButton = true;
-        }
-
-        function resetFilter(filterAttr) {
-            if (filterAttr === "voltage") {
-                vm.isVoltageFiltered = false;
-                vm.voltageFilterMin = undefined;
-                vm.voltageFilterMax = undefined;
-
-                if (vm.amperageFilterMin !== undefined && vm.amperageFilterMax !== undefined) {
-                    vm.applyFilters(vm.amperageFilterMin, vm.amperageFilterMax, "amperage");
-                } else {
-                    // Calculate results
-                    vm.results = vm.calcResults(vm.noises);
-                    // Prepare data for diagrams
-                    vm.voltageData = vm.getDataForDiagram(vm.noises, "voltage", "Voltage Wave", "#2ca02c");
-                    vm.amperageData = vm.getDataForDiagram(vm.noises, "amperage", "Amperage Wave", "#2ca02c");
-                }
-            }
-            if (filterAttr === "amperage") {
-                vm.isAmperageFiltered = false;
-                vm.amperageFilterMin = undefined;
-                vm.amperageFilterMax = undefined;
-
-                if (vm.voltageFilterMin !== undefined && vm.voltageFilterMax !== undefined) {
-                    vm.applyFilters(vm.voltageFilterMin, vm.voltageFilterMax, "voltage");
-                } else {
-                    // Calculate results
-                    vm.results = vm.calcResults(vm.noises);
-                    // Prepare data for diagrams
-                    vm.voltageData = vm.getDataForDiagram(vm.noises, "voltage", "Voltage Wave", "#2ca02c");
-                    vm.amperageData = vm.getDataForDiagram(vm.noises, "amperage", "Amperage Wave", "#2ca02c");
-                }
-            }
         }
 
         /**

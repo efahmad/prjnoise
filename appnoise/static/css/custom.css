@@ -45,6 +45,10 @@ td {
     margin-top: 25px;
 }
 
+.left-margin-15 {
+    margin-left: 15px;
+}
+
 .left-margin-10 {
     margin-left: 10px;
 }
@@ -69,4 +73,12 @@ td {
 
 .selectedRow {
     background-color: #f7ecb5 !important;
+}
+
+.normal-line-height {
+    line-height: normal;
+}
+
+.no-padding {
+    padding: 0;
 }

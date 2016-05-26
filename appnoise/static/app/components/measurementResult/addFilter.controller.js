@@ -18,11 +18,18 @@
         vm.voltageData = [];
         // Data for amperage diagram
         vm.amperageData = [];
-        // Filters
-        vm.voltageFilterMin = undefined;
-        vm.voltageFilterMax = undefined;
-        vm.amperageFilterMin = undefined;
-        vm.amperageFilterMax = undefined;
+        // Voltage filters
+        vm.voltageFilterMin = "";
+        vm.voltageFilterMax = "";
+        vm.voltageMAR = "";
+        vm.isVoltageFilterApplied = false;
+        vm.isVoltageMARApplied = false;
+        // Amperage filters
+        vm.amperageFilterMin = "";
+        vm.amperageFilterMax = "";
+        vm.amperageMAR = "";
+        vm.isAmperageFilterApplied = false;
+        vm.isAmperageMARApplied = false;
         // Measurement records after applying filter to them
         // which are used to draw diagrams and calc results
         vm.filteredVoltageRecords = undefined;
@@ -34,10 +41,14 @@
         //==== Function definitions ====
         vm.start = start;
         vm.applyVoltageFilter = applyVoltageFilter;
+        vm.applyVoltageMAR = applyVoltageMAR;
         vm.applyAmperageFilter = applyAmperageFilter;
+        vm.applyAmperageMAR = applyAmperageMAR;
         vm.validateFilters = validateFilters;
         vm.removeVoltageFilter = removeVoltageFilter;
+        vm.removeVoltageMAR = removeVoltageMAR;
         vm.removeAmperageFilter = removeAmperageFilter;
+        vm.removeAmperageMAR = removeAmperageMAR;
         vm.round = round;
 
         // Start the app
@@ -72,30 +83,108 @@
 
         function applyVoltageFilter() {
             var filterMin = parseFloat(vm.voltageFilterMin),
-                filterMax = parseFloat(vm.voltageFilterMax);
+                filterMax = parseFloat(vm.voltageFilterMax),
+                noiseDataArray;
 
             // Check validations
             if (!vm.validateFilters(filterMin, filterMax)) {
                 return;
             }
 
+            vm.isVoltageFilterApplied = true;
+
+            noiseDataArray = vm.isVoltageMARApplied
+                ? angular.copy(vm.filteredVoltageRecords)
+                : angular.copy(vm.measurementRecords);
             vm.filteredVoltageRecords = [];
 
-            for (var i = 0; i < vm.measurementRecords.length; i++) {
-                if (vm.measurementRecords[i]["voltage"] <= filterMax &&
-                    vm.measurementRecords[i]["voltage"] >= filterMin) {
-                    vm.filteredVoltageRecords.push(vm.measurementRecords[i]);
+            // Apply voltage filters
+            for (var i = 0; i < noiseDataArray.length; i++) {
+                if (noiseDataArray[i]["voltage"] <= filterMax &&
+                    noiseDataArray[i]["voltage"] >= filterMin) {
+                    vm.filteredVoltageRecords.push(noiseDataArray[i]);
                 }
             }
 
+            // Get diagrams data
+            vm.voltageData = diagramsService.getVoltageData(vm.filteredVoltageRecords);
+
             // Get filtered results
             vm.results = measurementResultService.calcAndGetResults(
-                vm.filteredAmperageRecords ? vm.filteredAmperageRecords : vm.measurementRecords,
+                vm.filteredAmperageRecords
+                    ? vm.filteredAmperageRecords
+                    : vm.measurementRecords,
                 vm.filteredVoltageRecords);
+        }
+
+        function applyVoltageMAR() {
+            var voltageMARNum = parseFloat(vm.voltageMAR),
+                noiseDataArray;
+
+            // Check validations
+            if (isNaN(voltageMARNum)) {
+                toastr.error("مقدار وارد شده نامعتبر است");
+                return;
+            }
+
+            vm.isVoltageMARApplied = true;
+
+            noiseDataArray = vm.isVoltageFilterApplied
+                ? angular.copy(vm.filteredVoltageRecords)
+                : angular.copy(vm.measurementRecords);
+            vm.filteredVoltageRecords = [];
+
+            // Apply voltage MAR
+            vm.filteredVoltageRecords = removeMovingAverage(noiseDataArray, voltageMARNum, "voltage");
 
             // Get diagrams data
             vm.voltageData = diagramsService.getVoltageData(vm.filteredVoltageRecords);
+
+            // Get filtered results
+            vm.results = measurementResultService.calcAndGetResults(
+                vm.filteredAmperageRecords
+                    ? vm.filteredAmperageRecords
+                    : vm.measurementRecords,
+                vm.filteredVoltageRecords);
         }
+
+        function removeVoltageFilter() {
+            vm.voltageFilterMin = "";
+            vm.voltageFilterMax = "";
+            vm.isVoltageFilterApplied = false;
+            if (vm.isVoltageMARApplied) {
+                vm.applyVoltageMAR();
+            } else {
+                vm.filteredVoltageRecords = undefined;
+                // Get diagrams data
+                vm.voltageData = diagramsService.getVoltageData(vm.measurementRecords);
+                // Get filtered results
+                vm.results = measurementResultService.calcAndGetResults(
+                    vm.filteredAmperageRecords
+                        ? vm.filteredAmperageRecords
+                        : vm.measurementRecords,
+                    vm.measurementRecords);
+            }
+        }
+
+        function removeVoltageMAR() {
+            vm.voltageMAR = "";
+            vm.isVoltageMARApplied = false;
+            if (vm.isVoltageFilterApplied) {
+                vm.applyVoltageFilter();
+            } else {
+                vm.filteredVoltageRecords = undefined;
+                // Get diagrams data
+                vm.voltageData = diagramsService.getVoltageData(vm.measurementRecords);
+                // Get filtered results
+                vm.results = measurementResultService.calcAndGetResults(
+                    vm.filteredAmperageRecords
+                        ? vm.filteredAmperageRecords
+                        : vm.measurementRecords,
+                    vm.measurementRecords);
+            }
+        }
+
 
         function applyAmperageFilter() {
             var filterMin = parseFloat(vm.amperageFilterMin),
@@ -124,6 +213,26 @@
             vm.amperageData = diagramsService.getAmperageData(vm.filteredAmperageRecords);
         }
 
+        function applyAmperageMAR() {
+
+        }
+
+        function removeAmperageFilter() {
+            vm.amperageFilterMin = undefined;
+            vm.amperageFilterMax = undefined;
+            vm.filteredAmperageRecords = undefined;
+
+            // Get filtered results
+            vm.results = measurementResultService.calcAndGetResults(
+                vm.measurementRecords,
+                vm.filteredVoltageRecords ? vm.filteredVoltageRecords : vm.measurementRecords);
+        }
+
+        function removeAmperageMAR() {
+
+        }
+
+
         /**
          *
          * @param filterMin Minimum value of filter range
@@ -133,7 +242,7 @@
         function validateFilters(filterMin, filterMax) {
             // Validate filters
             if (isNaN(filterMin) || isNaN(filterMax)) {
-                toastr.error("مقدار فیلتر نامعتبر است");
+                toastr.error("مقادیر وارد شده نامعتبر هستند");
                 return false;
             }
             if (filterMin > filterMax) {
@@ -148,30 +257,31 @@
             return true;
         }
 
-        function removeVoltageFilter() {
-            vm.voltageFilterMin = undefined;
-            vm.voltageFilterMax = undefined;
-            vm.filteredVoltageRecords = undefined;
-
-            // Get filtered results
-            vm.results = measurementResultService.calcAndGetResults(
-                vm.filteredAmperageRecords ? vm.filteredAmperageRecords : vm.measurementRecords,
-                vm.measurementRecords);
-        }
-
-        function removeAmperageFilter() {
-            vm.amperageFilterMin = undefined;
-            vm.amperageFilterMax = undefined;
-            vm.filteredAmperageRecords = undefined;
-
-            // Get filtered results
-            vm.results = measurementResultService.calcAndGetResults(
-                vm.measurementRecords,
-                vm.filteredVoltageRecords ? vm.filteredVoltageRecords : vm.measurementRecords);
-        }
-
         function round(number) {
             return mathService.to_exponential_3(number);
+        }
+
+        function removeMovingAverage(noiseArray, range, columnName) {
+            var filteredArray = [];
+            // Calc boundaries
+            var low = range;
+            var high = (noiseArray.length - 1) - (range + 1);
+            var sum;
+            var tempAvg;
+            var tempNoiseObj;
+
+            for (var i = low; i <= high; i++) {
+                sum = 0;
+                for (var j = i - range; j <= (i + range + 1); j++) {
+                    sum += noiseArray[j][columnName];
+                }
+                tempAvg = sum / (2 * range + 1);
+                tempNoiseObj = angular.copy(noiseArray[i]);
+                tempNoiseObj[columnName] = tempNoiseObj[columnName] - tempAvg;
+                filteredArray.push(tempNoiseObj);
+            }
+
+            return filteredArray;
         }
     }
 

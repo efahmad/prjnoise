@@ -20,10 +20,23 @@
             var amperageSquareSum = 0,
                 amperageArray = [],
                 voltageArray = [],
-                tempResult = {};
+                tempResult = {
+                    average: NaN,
+                    rms: NaN,
+                    si: NaN,
+                    li: NaN,
+                    sv: NaN,
+                    rn: NaN,
+                    icorr: NaN,
+                    mpy: NaN
+                };
 
             if (!voltageFilteredRecords) {
                 voltageFilteredRecords = amperageFilteredRecords;
+            }
+
+            if (amperageFilteredRecords.length == 0 || voltageFilteredRecords.length == 0) {
+                return tempResult;
             }
 
             for (var i = 0; i < amperageFilteredRecords.length; i++) {
