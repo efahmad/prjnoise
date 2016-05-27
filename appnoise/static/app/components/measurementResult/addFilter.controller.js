@@ -73,7 +73,7 @@
             var measurementId = vm.getMeasurementId();
             if (isNaN(measurementId)) {
                 // There is no measurement id, so return to the measurements view
-                $location.path('/measurements');
+                $location.path('/measurements').search("");
                 return;
             }
 
@@ -91,7 +91,7 @@
                 })
                 .error(function (data, status) {
                     toastr.error("خطا در دریافت داده های اندازه گیری");
-                    $location.path('/measurements');
+                    $location.path('/measurements').search("");
                 });
         }
 

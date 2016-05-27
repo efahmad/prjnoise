@@ -4,6 +4,7 @@
     function measurementResultService($http) {
         var service = {
             add: add,
+            remove: remove,
             calcAndGetResults: calcAndGetResults
         };
         return service;
@@ -13,6 +14,13 @@
                 url: "/measurementResults/",
                 method: "POST",
                 data: measurementResult
+            });
+        }
+
+        function remove(id) {
+            return $http({
+                url: "/measurementResults/" + id + "/",
+                method: "DELETE"
             });
         }
 

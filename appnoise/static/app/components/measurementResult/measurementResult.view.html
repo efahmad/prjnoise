@@ -35,13 +35,13 @@
                         <thead>
                         <tr>
                             <th>ردیف</th>
-                            <th>average</th>
+                            <!--<th>average</th>
                             <th>rms</th>
-                            <th>si</th>
+                            <th>si</th>-->
                             <th>li</th>
-                            <th>sv</th>
+                            <!--<th>sv</th>-->
                             <th>rn</th>
-                            <th>icorr</th>
+                           <!--<th>icorr</th>-->
                             <th>mpy</th>
                             <!--<th>Amperage Filter Min</th>-->
                             <!--<th>Amperage Filter Max</th>-->
@@ -58,13 +58,13 @@
                             ng-class="{'selectedRow': vm.selectedRowId === row.id}"
                             ng-click="vm.selectRow(row)">
                             <td>{{row.rowNum}}</td>
-                            <td>{{vm.round(row.average)}}</td>
+                            <!--<td>{{vm.round(row.average)}}</td>
                             <td>{{vm.round(row.rms)}}</td>
-                            <td>{{vm.round(row.si)}}</td>
+                            <td>{{vm.round(row.si)}}</td>-->
                             <td>{{vm.round(row.li)}}</td>
-                            <td>{{vm.round(row.sv)}}</td>
+                            <!--<td>{{vm.round(row.sv)}}</td>-->
                             <td>{{vm.round(row.rn)}}</td>
-                            <td>{{vm.round(row.icorr)}}</td>
+                            <!--<td>{{vm.round(row.icorr)}}</td>-->
                             <td>{{vm.round(row.mpy)}}</td>
                             <!--<td>{{row.amperageFilterMin}}</td>-->
                             <!--<td>{{row.amperageFilterMax}}</td>-->
@@ -102,7 +102,7 @@
                                         confirm-text="{{ 'بله' }}"
                                         cancel-text="{{ 'انصراف' }}"
                                         placement="{{ 'top' }}"
-                                        on-confirm=""
+                                        on-confirm="vm.removeResult(row)"
                                         confirm-button-type="danger"
                                         cancel-button-type="default">
                                     <i class="fa fa-times" aria-hidden="true"></i>

@@ -5,7 +5,8 @@
     "use strict";
 
     function measurementResultController($location, measurementService,
-                                         mathService, dateTimeService, diagramsService) {
+                                         mathService, dateTimeService, diagramsService,
+                                         measurementResultService) {
 
         //==== variables ====
         var vm = this;
@@ -42,6 +43,7 @@
         vm.selectRow = selectRow;
         vm.hasFilter = hasFilter;
         vm.addNewFilter = addNewFilter;
+        vm.removeResult = removeResult;
 
         // Start the app
         vm.start();
@@ -51,7 +53,7 @@
         function start() {
             if (isNaN(vm.getMeasurementId())) {
                 // There is no measurement id, so return to the measurements view
-                $location.path('/measurements');
+                $location.path('/measurements').search("");
                 return;
             }
 
@@ -71,13 +73,7 @@
             });
 
             // Retrieve measurement results
-            vm.getMeasurementResults(vm.getMeasurementId()).then(function (response) {
-                // Add row number
-                for (var i = 0; i < response.data.length; i++) {
-                    response.data[i].rowNum = i + 1;
-                }
-                vm.measurementResults = response.data;
-            });
+            vm.getMeasurementResults(vm.getMeasurementId());
 
             // Get options of voltage and amperage diagrams
             vm.voltageOptions = diagramsService.getVoltageOptions();
@@ -104,6 +100,13 @@
 
         function getMeasurementResults(measurementId) {
             return measurementService.getResults(measurementId)
+                .success(function (data, status) {
+                    // Add row number
+                    for (var i = 0; i < data.length; i++) {
+                        data[i].rowNum = i + 1;
+                    }
+                    vm.measurementResults = data;
+                })
                 .error(function () {
                     toastr.error("خطا در دریافت نتایج اندازه گیری");
                 });
@@ -172,9 +175,27 @@
         function addNewFilter() {
             $location.path('/measurementResults/addFilter');
         }
+
+        function removeResult(row) {
+            // If the measurement result is main result, we can not delete it
+            if (row.isMainResult) {
+                toastr.warning("نتیجه اصلی قابل حذف نمی باشد");
+                return;
+            }
+
+            return measurementResultService.remove(row.id)
+                .success(function (data, status) {
+                    toastr.success("نتیجه مورد نظر با موفقیت حذف شد");
+                    // Reload results
+                    vm.getMeasurementResults(vm.getMeasurementId());
+                })
+                .error(function (data, status) {
+                    toastr.error("خطا در حذف نتیجه");
+                });
+        }
     }
 
     angular.module("noiseApp").controller("measurementResultController", measurementResultController);
     measurementResultController.$inject = ["$location", "measurementService",
-        "mathService", "dateTimeService", "diagramsService"];
+        "mathService", "dateTimeService", "diagramsService", "measurementResultService"];
 })();

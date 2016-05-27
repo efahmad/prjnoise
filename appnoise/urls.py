@@ -4,12 +4,19 @@ from appnoise.views import home, measurements, measurement_results, measurement_
 
 urlpatterns = [
     url(r'^$', home.index, name='index'),
+
+    # ================== Measurements ==================
     url(r'^measurements/$', measurements.MeasurementList.as_view()),
     url(r'^measurements/(?P<pk>[0-9]+)/$', measurements.MeasurementDetail.as_view()),
     url(r'^measurements/(?P<pk>[0-9]+)/measurementRecords/$',
         measurements.MeasurementMeasurementRecordDetails.as_view()),
     url(r'^measurements/(?P<pk>[0-9]+)/measurementResults/$',
         measurements.MeasurementMeasurementResultDetails.as_view()),
+
+    # ================== MeasurementResults ==================
     url(r'^measurementResults/$', measurement_results.MeasurementResultList.as_view()),
+    url(r'^measurementResults/(?P<pk>[0-9]+)/$', measurement_results.MeasurementResultDetail.as_view()),
+
+    # ================== MeasurementRecords ==================
     url(r'^measurementRecords/many/$', measurement_records.MeasurementRecordBulkView.as_view()),
 ]
