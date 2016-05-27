@@ -1,6 +1,6 @@
 <style type="text/css">
     input.filterUI {
-        width: 75px !important;
+        width: 100px !important;
         direction: ltr;
     }
 
@@ -27,7 +27,7 @@
                            class="form-control filterUI"
                            ng-disabled="vm.isVoltageFilterApplied"/>
                 </div>
-                <div class="col-md-1 normal-line-height"><label>تا</label></div>
+                <div class="col-md-1 line-height-normal"><label>تا</label></div>
                 <div class="col-md-7 no-padding">
                     <input type="text"
                            ng-model="vm.voltageFilterMax"
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="row form-inline row-bottom-space">
-                <div class="col-md-5 text-left normal-line-height">
+                <div class="col-md-5 text-left line-height-normal">
                     <label>میانگین متحرک</label>
                 </div>
                 <div class="col-md-7 no-padding">
@@ -74,29 +74,54 @@
         <div class="col-md-6">
             <span>فیلتر جریان</span>
             <hr/>
-            <div class="row-bottom-space form-inline">
-                <label style="margin-left: 10px;">از</label>
-                <input type="text"
-                       ng-model="vm.amperageFilterMin"
-                       class="form-control filterUI"/>
-                <label style="margin-right: 10px; margin-left: 10px;">تا</label>
-                <input type="text"
-                       ng-model="vm.amperageFilterMax"
-                       class="form-control filterUI"/>
-                <button type="button"
-                        ng-click="vm.applyAmperageFilter()"
-                        class="btn btn-info">اعمال تغییرات
-                </button>
-                <button type="button"
-                        class="btn btn-danger"
-                        ng-click="vm.removeAmperageFilter()">حذف
-                </button>
+            <div class="row row-bottom-space form-inline">
+                <div class="col-md-4 no-padding text-left">
+                    <label class="left-margin-15">از</label>
+                    <input type="text"
+                           ng-model="vm.amperageFilterMin"
+                           class="form-control filterUI"
+                           ng-disabled="vm.isAmperageFilterApplied"/>
+                </div>
+                <div class="col-md-1 line-height-normal">
+                    <label>تا</label>
+                </div>
+                <div class="col-md-7 no-padding">
+                    <input type="text"
+                           ng-model="vm.amperageFilterMax"
+                           class="form-control filterUI left-margin-5"
+                           ng-disabled="vm.isAmperageFilterApplied"/>
+                    <button type="button"
+                            ng-click="vm.applyAmperageFilter()"
+                            ng-show="!vm.isAmperageFilterApplied"
+                            class="btn btn-info">اعمال تغییرات
+                    </button>
+                    <button type="button"
+                            class="btn btn-danger"
+                            ng-show="vm.isAmperageFilterApplied"
+                            ng-click="vm.removeAmperageFilter()">حذف
+                    </button>
+                </div>
             </div>
-            <div class="row-bottom-space form-inline">
-                <label style="margin-left: 10px;">حذف میانگین متحرک</label>
-                <input type="text"
-                       ng-model="vm.amperageMovingAverageRange"
-                       class="form-control filterUI"/>
+            <div class="row row-bottom-space form-inline">
+                <div class="col-md-5 text-left line-height-normal">
+                    <label>میانگین متحرک</label>
+                </div>
+                <div class="col-md-7 no-padding">
+                    <input type="text"
+                           ng-model="vm.amperageMAR"
+                           class="form-control filterUI left-margin-5"
+                           ng-disabled="vm.isAmperageMARApplied"/>
+                    <button type="button"
+                            ng-click="vm.applyAmperageMAR()"
+                            ng-show="!vm.isAmperageMARApplied"
+                            class="btn btn-info">اعمال تغییرات
+                    </button>
+                    <button type="button"
+                            class="btn btn-danger"
+                            ng-show="vm.isAmperageMARApplied"
+                            ng-click="vm.removeAmperageMAR()">حذف
+                    </button>
+                </div>
             </div>
             <hr/>
         </div>

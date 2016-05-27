@@ -169,7 +169,7 @@
         }
 
         function round(number) {
-            return mathService.to_exponential_2(number);
+            return mathService.to_exponential_3(number);
         }
     }
 
