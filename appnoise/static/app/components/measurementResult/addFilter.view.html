@@ -77,16 +77,22 @@
         <!-- Amperage filter -->
         <div class="col-md-6">
             <div class="row" style="height: 35px;">
-                <div class="col-md-6 line-height-normal">
+                <div class="col-md-3 line-height-normal">
                     <span>فیلتر جریان</span>
                 </div>
-                <div class="col-md-6 text-left">
+                <div class="col-md-9 text-left">
                     <button type="button"
                             class="btn btn-success"
                             ng-show="vm.isVoltageFilterApplied || vm.isVoltageMARApplied || vm.isAmperageFilterApplied || vm.isAmperageMARApplied"
                             ng-click="vm.saveResult()">
                         <i class="fa fa-floppy-o left-margin-5" aria-hidden="true"></i>
                         <span>ذخیره و بازگشت</span>
+                    </button>
+                    <button type="button"
+                            class="btn btn-danger"
+                            ng-click="vm.cancelAndReturn()">
+                        <i class="fa fa-times left-margin-5" aria-hidden="true"></i>
+                        <span>بازگشت</span>
                     </button>
                 </div>
             </div>

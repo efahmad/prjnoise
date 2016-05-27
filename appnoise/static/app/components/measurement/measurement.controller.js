@@ -83,9 +83,7 @@
         }
 
         function viewResults(measurement) {
-            // Save measurement to temp storage to retrieve it in the target view
-            tempStorageService.saveMeasurement(measurement);
-            $location.path('/measurementResults');
+            $location.path('/measurementResults').search("measurement_id", measurement.id);
         }
     }
 

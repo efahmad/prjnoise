@@ -6,6 +6,7 @@
     function measurementService($http) {
         var service = {
             add: add,
+            get: get,
             getAll: getAll,
             remove: remove,
             getRecords: getRecords,
@@ -21,6 +22,13 @@
             });
         }
 
+        function get(id) {
+            return $http({
+                url: "/measurements/" + id + "/",
+                method: "GET"
+            });
+        }
+        
         function getAll() {
             return $http({
                 url: "/measurements/",

@@ -4,74 +4,14 @@
 (function () {
     "use strict";
 
-    function measurementResultController($location, tempStorageService, measurementService,
-                                         mathService, dateTimeService) {
+    function measurementResultController($location, measurementService,
+                                         mathService, dateTimeService, diagramsService) {
 
         //==== variables ====
         var vm = this;
         vm.measurement = undefined;
         vm.measurementRecords = [];
         vm.measurementResults = [];
-        // Shared options for voltage & amperage diagrams
-        vm.options = {
-            chart: {
-                type: 'lineChart',
-                height: 500,
-                margin: {
-                    top: 50,
-                    right: 50,
-                    bottom: 75,
-                    left: 150
-                },
-                x: function (d) {
-                    return d.x;
-                },
-                y: function (d) {
-                    return d.y;
-                },
-                useInteractiveGuideline: true,
-                dispatch: {
-                    stateChange: function (e) {
-                        console.log("stateChange");
-                    },
-                    changeState: function (e) {
-                        console.log("changeState");
-                    },
-                    tooltipShow: function (e) {
-                        console.log("tooltipShow");
-                    },
-                    tooltipHide: function (e) {
-                        console.log("tooltipHide");
-                    }
-                },
-                xAxis: {
-                    axisLabel: 'Time (s)',
-                    axisLabelDistance: 10
-                },
-                yAxis: {
-                    tickFormat: function (d) {
-                        // return d3.format('.03f')(d);
-                        return vm.round(d);
-                    },
-                    axisLabelDistance: 50
-                },
-                /*callback: function(chart) {
-                 console.log("!!! lineChart callback !!!");
-                 }*/
-            },
-            title: {
-                enable: true
-            }
-            /*,
-             subtitle: {
-             enable: true,
-             text: 'Subtitle for simple line chart. Lorem ipsum dolor sit amet, at eam blandit sadipscing, vim adhuc sanctus disputando ex, cu usu affert alienum urbanitas.',
-             css: {
-             'text-align': 'center',
-             'margin': '10px 13px 0px 7px'
-             }
-             }*/
-        };
         // Options specific for voltage diagram
         vm.voltageOptions = {};
         // Options specific for amperage diagram
@@ -90,6 +30,8 @@
 
         //==== function definitions ====
         vm.start = start;
+        vm.getMeasurementId = getMeasurementId;
+        vm.getMeasurement = getMeasurement;
         vm.getMeasurementRecords = getMeasurementRecords;
         vm.getMeasurementResults = getMeasurementResults;
         vm.round = round;
@@ -107,26 +49,29 @@
 
         //==== function implementations ====
         function start() {
-
-            // Retrieve measurement data
-            vm.measurement = tempStorageService.getMeasurement();
-            if (!vm.measurement) {
-                // There is no measurement data, so return to the measurements view
+            if (isNaN(vm.getMeasurementId())) {
+                // There is no measurement id, so return to the measurements view
                 $location.path('/measurements');
                 return;
             }
 
-            // Set view title
-            angular.element("#viewTitle").html("نتایج اندازه گیری " +
-                dateTimeService.toTehranTimeZone(vm.measurement.measurement_date));
+            // Retrieve measurement by id
+            vm.getMeasurement(vm.getMeasurementId())
+                .success(function (data, status) {
+                    vm.measurement = data;
+                    // Set view title
+                    angular.element("#viewTitle").html("نتایج اندازه گیری " +
+                        dateTimeService.toTehranTimeZone(vm.measurement.measurement_date));
+                });
+
 
             // Retrieve measurement records
-            vm.getMeasurementRecords(vm.measurement.id).then(function (response) {
+            vm.getMeasurementRecords(vm.getMeasurementId()).then(function (response) {
                 vm.measurementRecords = response.data;
             });
 
             // Retrieve measurement results
-            vm.getMeasurementResults(vm.measurement.id).then(function (response) {
+            vm.getMeasurementResults(vm.getMeasurementId()).then(function (response) {
                 // Add row number
                 for (var i = 0; i < response.data.length; i++) {
                     response.data[i].rowNum = i + 1;
@@ -134,14 +79,20 @@
                 vm.measurementResults = response.data;
             });
 
-            // Set options of voltage and amperage diagrams
-            vm.voltageOptions = angular.copy(vm.options);
-            vm.voltageOptions.chart.yAxis.axisLabel = 'Voltage (v)';
-            vm.voltageOptions.title.text = "نمودار نوسانات پتانسیل بر حسب زمان";
-            //
-            vm.amperageOptions = angular.copy(vm.options);
-            vm.amperageOptions.chart.yAxis.axisLabel = "Amperage (A)";
-            vm.amperageOptions.title.text = "نمودار نوسانات جریان بر حسب زمان";
+            // Get options of voltage and amperage diagrams
+            vm.voltageOptions = diagramsService.getVoltageOptions();
+            vm.amperageOptions = diagramsService.getAmperageOptions();
+        }
+
+        function getMeasurementId() {
+            return parseInt($location.search().measurement_id);
+        }
+
+        function getMeasurement(id) {
+            return measurementService.get(id)
+                .error(function (data, status) {
+                    toastr.error("خطا در دریافت خصوصیات اندازه گیری");
+                });
         }
 
         function getMeasurementRecords(measurementId) {
@@ -219,13 +170,11 @@
         }
 
         function addNewFilter() {
-            // Save measurement to temp storage to retrieve it in the target view
-            tempStorageService.saveMeasurementRecordsArray(angular.copy(vm.measurementRecords));
             $location.path('/measurementResults/addFilter');
         }
     }
 
     angular.module("noiseApp").controller("measurementResultController", measurementResultController);
-    measurementResultController.$inject = ["$location", "tempStorageService", "measurementService",
-        "mathService", "dateTimeService"];
+    measurementResultController.$inject = ["$location", "measurementService",
+        "mathService", "dateTimeService", "diagramsService"];
 })();

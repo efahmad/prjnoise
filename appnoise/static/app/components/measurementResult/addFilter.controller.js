@@ -4,8 +4,8 @@
 (function () {
     "use strict";
 
-    function addFilterController($location, tempStorageService, diagramsService,
-                                 measurementResultService, mathService) {
+    function addFilterController($location, diagramsService,
+                                 measurementResultService, mathService, measurementService) {
 
         //==== Variables ====
         var vm = this;
@@ -40,6 +40,8 @@
 
         //==== Function definitions ====
         vm.start = start;
+        vm.getMeasurementId = getMeasurementId;
+        vm.getMeasurementRecords = getMeasurementRecords;
         vm.applyVoltageFilter = applyVoltageFilter;
         vm.applyVoltageMAR = applyVoltageMAR;
         vm.applyAmperageFilter = applyAmperageFilter;
@@ -51,35 +53,54 @@
         vm.removeAmperageMAR = removeAmperageMAR;
         vm.round = round;
         vm.saveResult = saveResult;
+        vm.cancelAndReturn = cancelAndReturn;
 
+
+        // Get options of voltage and amperage diagrams
+        vm.voltageOptions = diagramsService.getVoltageOptions();
+        vm.voltageOptions.chart.height = 300;
+        vm.amperageOptions = diagramsService.getAmperageOptions();
+        vm.amperageOptions.chart.height = 300;
         // Start the app
         vm.start();
 
 
         //==== Function implementations ====
         function start() {
-            // Retrieve measurement records
-            vm.measurementRecords = tempStorageService.getMeasurementRecordsArray();
-            if (!vm.measurementRecords) {
-                // There is no measurement record data, so return to the measurements view
+            // Set view title
+            angular.element("#viewTitle").html("افزودن فیلتر");
+
+            var measurementId = vm.getMeasurementId();
+            if (isNaN(measurementId)) {
+                // There is no measurement id, so return to the measurements view
                 $location.path('/measurements');
                 return;
             }
 
-            // Set view title
-            angular.element("#viewTitle").html("افزودن فیلتر");
+            // Retrieve measurement records by measurement id
+            vm.getMeasurementRecords(measurementId)
+                .success(function (data, status) {
+                    vm.measurementRecords = data;
 
-            // Get options of voltage and amperage diagrams
-            vm.voltageOptions = diagramsService.getVoltageOptions();
-            vm.voltageOptions.chart.height = 300;
-            vm.amperageOptions = diagramsService.getAmperageOptions();
-            vm.amperageOptions.chart.height = 300;
-            // Get diagrams data
-            vm.voltageData = diagramsService.getVoltageData(vm.measurementRecords);
-            vm.amperageData = diagramsService.getAmperageData(vm.measurementRecords);
+                    // Get diagrams data
+                    vm.voltageData = diagramsService.getVoltageData(vm.measurementRecords);
+                    vm.amperageData = diagramsService.getAmperageData(vm.measurementRecords);
 
-            // Get filter-free results
-            vm.results = measurementResultService.calcAndGetResults(vm.measurementRecords);
+                    // Get filter-free results
+                    vm.results = measurementResultService.calcAndGetResults(vm.measurementRecords);
+                })
+                .error(function (data, status) {
+                    toastr.error("خطا در دریافت داده های اندازه گیری");
+                    $location.path('/measurements');
+                });
+        }
+
+        function getMeasurementId() {
+            return parseInt($location.search().measurement_id);
+        }
+
+        function getMeasurementRecords(measurementId) {
+            return measurementService.getRecords(measurementId);
         }
 
         function applyVoltageFilter() {
@@ -186,7 +207,6 @@
             }
         }
 
-
         function applyAmperageFilter() {
             var filterMin = parseFloat(vm.amperageFilterMin),
                 filterMax = parseFloat(vm.amperageFilterMax),
@@ -291,7 +311,6 @@
             }
         }
 
-
         /**
          *
          * @param filterMin Minimum value of filter range
@@ -317,7 +336,9 @@
         }
 
         function round(number) {
-            return mathService.to_exponential_3(number);
+            if (number) {
+                return mathService.to_exponential_3(number);
+            }
         }
 
         function removeMovingAverage(noiseArray, range, columnName) {
@@ -365,18 +386,22 @@
             }
 
             measurementResultService.add(tempResult)
-                .success(function(data, status){
+                .success(function (data, status) {
                     toastr.success("ذخیره سازی با موفقیت انجام شد.");
                     //
                     $location.path('/measurementResults');
                 })
-                .error(function(data, status){
-                   toastr.error("خطا در ذخیره فیلتر ها");
+                .error(function (data, status) {
+                    toastr.error("خطا در ذخیره فیلتر ها");
                 });
+        }
+
+        function cancelAndReturn() {
+            $location.path('/measurementResults');
         }
     }
 
     angular.module("noiseApp").controller("addFilterController", addFilterController);
-    addFilterController.$inject = ["$location", "tempStorageService", "diagramsService",
-        "measurementResultService", "mathService"];
+    addFilterController.$inject = ["$location", "diagramsService",
+        "measurementResultService", "mathService", "measurementService"];
 })();
