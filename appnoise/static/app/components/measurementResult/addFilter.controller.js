@@ -50,6 +50,7 @@
         vm.removeAmperageFilter = removeAmperageFilter;
         vm.removeAmperageMAR = removeAmperageMAR;
         vm.round = round;
+        vm.saveResult = saveResult;
 
         // Start the app
         vm.start();
@@ -123,7 +124,7 @@
 
             // Check validations
             if (isNaN(voltageMARNum)) {
-                toastr.error("مقدار وارد شده نامعتبر است");
+                toastr.error("مقدار نامعتبر است");
                 return;
             }
 
@@ -150,7 +151,7 @@
 
         function removeVoltageFilter() {
             /*vm.voltageFilterMin = "";
-            vm.voltageFilterMax = "";*/
+             vm.voltageFilterMax = "";*/
             vm.isVoltageFilterApplied = false;
             if (vm.isVoltageMARApplied) {
                 vm.applyVoltageMAR();
@@ -228,7 +229,7 @@
 
             // Check validations
             if (isNaN(amperageMARNum)) {
-                toastr.error("مقدار وارد شده نامعتبر است");
+                toastr.error("مقدار نامعتبر است");
                 return;
             }
 
@@ -255,7 +256,7 @@
 
         function removeAmperageFilter() {
             /*vm.amperageFilterMin = "";
-            vm.amperageFilterMax = "";*/
+             vm.amperageFilterMax = "";*/
             vm.isAmperageFilterApplied = false;
             if (vm.isAmperageMARApplied) {
                 vm.applyAmperageMAR();
@@ -289,7 +290,7 @@
                         : vm.measurementRecords);
             }
         }
-        
+
 
         /**
          *
@@ -300,7 +301,7 @@
         function validateFilters(filterMin, filterMax) {
             // Validate filters
             if (isNaN(filterMin) || isNaN(filterMax)) {
-                toastr.error("مقادیر وارد شده نامعتبر هستند");
+                toastr.error("مقادیر نامعتبر هستند");
                 return false;
             }
             if (filterMin > filterMax) {
@@ -340,6 +341,38 @@
             }
 
             return filteredArray;
+        }
+
+        function saveResult() {
+            var tempResult = angular.copy(vm.results);
+
+            // Set measurement
+            tempResult.measurement = vm.measurementRecords[0].measurement;
+
+            if (vm.isVoltageFilterApplied) {
+                tempResult.voltageFilterMin = vm.voltageFilterMin;
+                tempResult.voltageFilterMax = vm.voltageFilterMax;
+            }
+            if (vm.isVoltageMARApplied) {
+                tempResult.voltageMovingAverage = vm.voltageMAR;
+            }
+            if (vm.isAmperageFilterApplied) {
+                tempResult.amperageFilterMin = vm.amperageFilterMin;
+                tempResult.amperageFilterMax = vm.amperageFilterMax;
+            }
+            if (vm.isAmperageMARApplied) {
+                tempResult.amperageMovingAverage = vm.amperageMAR;
+            }
+
+            measurementResultService.add(tempResult)
+                .success(function(data, status){
+                    toastr.success("ذخیره سازی با موفقیت انجام شد.");
+                    //
+                    $location.path('/measurementResults');
+                })
+                .error(function(data, status){
+                   toastr.error("خطا در ذخیره فیلتر ها");
+                });
         }
     }
 

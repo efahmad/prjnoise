@@ -1,5 +1,4 @@
 from rest_framework.serializers import ModelSerializer
-from rest_framework_bulk import BulkSerializerMixin
 
 from appnoise.models import Measurement, MeasurementRecord, MeasurementResult
 
@@ -19,5 +18,6 @@ class MeasurementRecordSerializer(ModelSerializer):
 class MeasurementResultSerializer(ModelSerializer):
     class Meta:
         model = MeasurementResult
-        fields = ('id', 'measurement', 'average', 'rms', 'si', 'li', 'sv', 'rn', 'icorr', 'mpy', 'amperageFilterMin',
-                  'amperageFilterMax', 'voltageFilterMin', 'voltageFilterMax', 'isMainResult')
+        fields = ('id', 'measurement', 'average', 'rms', 'si', 'li', 'sv', 'rn', 'icorr', 'mpy',
+                  'amperageFilterMin', 'amperageFilterMax', 'amperageMovingAverage',
+                  'voltageFilterMin', 'voltageFilterMax', 'voltageMovingAverage', 'isMainResult')

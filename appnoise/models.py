@@ -34,8 +34,10 @@ class MeasurementResult(models.Model):
     mpy = models.FloatField()
     voltageFilterMin = models.FloatField(null=True)
     voltageFilterMax = models.FloatField(null=True)
+    voltageMovingAverage = models.FloatField(null=True)
     amperageFilterMin = models.FloatField(null=True)
-    amperageFilterMax=models.FloatField(null=True)
+    amperageFilterMax = models.FloatField(null=True)
+    amperageMovingAverage = models.FloatField(null=True)
     isMainResult = models.BooleanField(default=False)
 
     def __str__(self):

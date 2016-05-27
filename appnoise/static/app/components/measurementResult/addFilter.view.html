@@ -17,7 +17,11 @@
 
         <!-- Voltage filter -->
         <div class="col-md-6">
-            <span>فیلتر پتانسیل</span>
+            <div class="row" style="height: 35px;">
+                <div class="col-md-12 line-height-normal">
+                    <span>فیلتر پتانسیل</span>
+                </div>
+            </div>
             <hr/>
             <div class="row row-bottom-space form-inline">
                 <div class="col-md-4 text-left no-padding">
@@ -72,7 +76,20 @@
 
         <!-- Amperage filter -->
         <div class="col-md-6">
-            <span>فیلتر جریان</span>
+            <div class="row" style="height: 35px;">
+                <div class="col-md-6 line-height-normal">
+                    <span>فیلتر جریان</span>
+                </div>
+                <div class="col-md-6 text-left">
+                    <button type="button"
+                            class="btn btn-success"
+                            ng-show="vm.isVoltageFilterApplied || vm.isVoltageMARApplied || vm.isAmperageFilterApplied || vm.isAmperageMARApplied"
+                            ng-click="vm.saveResult()">
+                        <i class="fa fa-floppy-o left-margin-5" aria-hidden="true"></i>
+                        <span>ذخیره و بازگشت</span>
+                    </button>
+                </div>
+            </div>
             <hr/>
             <div class="row row-bottom-space form-inline">
                 <div class="col-md-4 no-padding text-left">

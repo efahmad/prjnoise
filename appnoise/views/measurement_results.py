@@ -18,7 +18,6 @@ class MeasurementResultList(APIView):
 
     # POST /measurementResults
     def post(self, request, format=None):
-        print("in post method of MeasurementResultList class")
         serializer = MeasurementResultSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

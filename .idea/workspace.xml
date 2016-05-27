@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b1a4209-8228-4a8c-8bd7-dcdfd6ef6732" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appnoise/static/app/components/home/home.controller.js" afterPath="$PROJECT_DIR$/appnoise/static/app/components/home/home.controller.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appnoise/models.py" afterPath="$PROJECT_DIR$/appnoise/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appnoise/serializers.py" afterPath="$PROJECT_DIR$/appnoise/serializers.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appnoise/static/app/components/measurementResult/addFilter.controller.js" afterPath="$PROJECT_DIR$/appnoise/static/app/components/measurementResult/addFilter.controller.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appnoise/static/app/components/measurementResult/addFilter.view.html" afterPath="$PROJECT_DIR$/appnoise/static/app/components/measurementResult/addFilter.view.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appnoise/static/css/custom.css" afterPath="$PROJECT_DIR$/appnoise/static/css/custom.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appnoise/views/measurement_results.py" afterPath="$PROJECT_DIR$/appnoise/views/measurement_results.py" />
     </list>
     <ignored path="prjnoise.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,32 +31,36 @@
       <file leaf-file-name="addFilter.controller.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/appnoise/static/app/components/measurementResult/addFilter.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="170" column="14" selection-start-line="170" selection-start-column="12" selection-end-line="170" selection-end-column="35" />
+            <state relative-caret-position="53">
+              <caret line="349" column="73" selection-start-line="349" selection-start-column="73" selection-end-line="349" selection-end-column="73" />
               <folding>
                 <element signature="e#0#41#0" expanded="false" />
-                <element signature="e#1959#3051#0" expanded="false" />
-                <element signature="e#3091#4388#0" expanded="false" />
-                <element signature="e#4425#5502#0" expanded="false" />
-                <element signature="e#5543#6282#0" expanded="false" />
-                <element signature="e#7060#8368#0" expanded="false" />
-                <element signature="e#8406#9495#0" expanded="false" />
-                <element signature="e#9537#10282#0" expanded="false" />
-                <element signature="e#10321#11024#0" expanded="false" />
-                <element signature="e#11302#11841#0" expanded="false" />
-                <element signature="e#11874#11942#0" expanded="false" />
-                <element signature="e#12012#12759#0" expanded="false" />
+                <element signature="e#1995#3087#0" expanded="false" />
+                <element signature="e#3127#4424#0" expanded="false" />
+                <element signature="e#4461#5529#0" expanded="false" />
+                <element signature="e#5570#6310#0" expanded="false" />
+                <element signature="e#6348#7046#0" expanded="false" />
+                <element signature="e#7088#8396#0" expanded="false" />
+                <element signature="e#8434#9514#0" expanded="false" />
+                <element signature="e#9556#10302#0" expanded="false" />
+                <element signature="e#10341#11044#0" expanded="false" />
+                <element signature="e#11314#11844#0" expanded="false" />
+                <element signature="e#11877#11945#0" expanded="false" />
+                <element signature="e#12015#12762#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="addFilter.view.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="addFilter.view.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/appnoise/static/app/components/measurementResult/addFilter.view.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+            <state relative-caret-position="486">
+              <caret line="86" column="53" selection-start-line="86" selection-start-column="53" selection-end-line="86" selection-end-column="53" />
               <folding>
+                <element signature="n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#div#1;n#div#0;n#!!top" expanded="false" />
                 <element signature="n#style#0;n#nvd3#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#nvd3#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
@@ -69,88 +73,29 @@
       <file leaf-file-name="custom.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/appnoise/static/css/custom.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2079">
+            <state relative-caret-position="444">
               <caret line="77" column="19" selection-start-line="77" selection-start-column="19" selection-end-line="77" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.controller.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/appnoise/static/app/components/home/home.controller.js">
+      <file leaf-file-name="home.view.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/appnoise/static/app/components/home/home.view.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1053">
-              <caret line="171" column="47" selection-start-line="171" selection-start-column="47" selection-end-line="171" selection-end-column="47" />
+            <state relative-caret-position="-226">
+              <caret line="35" column="88" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="88" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="math.service.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/appnoise/static/app/shared/services/math.service.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="measurement.controller.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/appnoise/static/app/components/measurement/measurement.controller.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-              <folding>
-                <element signature="e#671#818#0" expanded="false" />
-                <element signature="e#855#1250#0" expanded="false" />
-                <element signature="e#1293#2432#0" expanded="false" />
-                <element signature="e#2625#2972#0" expanded="false" />
-                <element signature="e#3016#3221#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="measurement_records.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/appnoise/views/measurement_records.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="measurement_results.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="measurement_results.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/appnoise/views/measurement_results.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+            <state relative-caret-position="378">
+              <caret line="19" column="41" selection-start-line="19" selection-start-column="41" selection-end-line="19" selection-end-column="41" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="measurementResult.controller.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/appnoise/static/app/components/measurementResult/measurementResult.controller.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2349">
-              <caret line="161" column="47" selection-start-line="161" selection-start-column="47" selection-end-line="161" selection-end-column="47" />
-              <folding>
-                <element signature="e#0#41#0" expanded="false" />
-                <element signature="e#482#2466#0" expanded="false" />
-                <element signature="e#2780#2875#0" expanded="false" />
-                <element signature="e#5159#5363#0" expanded="false" />
-                <element signature="e#5419#5620#0" expanded="false" />
-                <element signature="e#5794#6261#0" expanded="false" />
-                <element signature="e#6304#6612#0" expanded="false" />
-                <element signature="e#6656#6927#0" expanded="false" />
-                <element signature="e#6964#7198#0" expanded="false" />
-                <element signature="e#7232#7282#0" expanded="false" />
-                <element signature="e#7316#7543#0" expanded="false" />
-                <element signature="e#7577#7828#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -169,6 +114,16 @@
                 <element signature="n#div#4;n#div#0;n#!!top" expanded="false" />
                 <element signature="n#style#0;n#nvd3#0;n#div#4;n#div#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/appnoise/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="485">
+              <caret line="37" column="21" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="21" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -193,7 +148,6 @@
       <list>
         <option value="$PROJECT_DIR$/prjnoise/urls.py" />
         <option value="$PROJECT_DIR$/appnoise/views.py" />
-        <option value="$PROJECT_DIR$/appnoise/views/measurement_results.py" />
         <option value="$PROJECT_DIR$/appnoise/views/measurement_records.py" />
         <option value="$PROJECT_DIR$/prjnoise/settings.py" />
         <option value="$PROJECT_DIR$/appnoise/views/home.py" />
@@ -203,8 +157,6 @@
         <option value="$PROJECT_DIR$/appnoise/urls.py" />
         <option value="$PROJECT_DIR$/appnoise/static/app/shared/services/measurement.service.js" />
         <option value="$PROJECT_DIR$/appnoise/views/measurements.py" />
-        <option value="$PROJECT_DIR$/appnoise/models.py" />
-        <option value="$PROJECT_DIR$/appnoise/serializers.py" />
         <option value="$PROJECT_DIR$/appnoise/static/app/components/home/home.view.html" />
         <option value="$PROJECT_DIR$/appnoise/static/app/shared/services/tempStorage.service.js" />
         <option value="$PROJECT_DIR$/appnoise/static/app/app.routes.js" />
@@ -217,9 +169,12 @@
         <option value="$PROJECT_DIR$/appnoise/static/app/components/measurement/measurement.controller.js" />
         <option value="$PROJECT_DIR$/appnoise/static/app/shared/services/measurementResult.service.js" />
         <option value="$PROJECT_DIR$/appnoise/static/css/custom.css" />
-        <option value="$PROJECT_DIR$/appnoise/static/app/components/measurementResult/addFilter.controller.js" />
         <option value="$PROJECT_DIR$/appnoise/static/app/components/home/home.controller.js" />
+        <option value="$PROJECT_DIR$/appnoise/models.py" />
+        <option value="$PROJECT_DIR$/appnoise/serializers.py" />
         <option value="$PROJECT_DIR$/appnoise/static/app/components/measurementResult/addFilter.view.html" />
+        <option value="$PROJECT_DIR$/appnoise/static/app/components/measurementResult/addFilter.controller.js" />
+        <option value="$PROJECT_DIR$/appnoise/views/measurement_results.py" />
       </list>
     </option>
   </component>
@@ -306,6 +261,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="prjnoise" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="prjnoise" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="appnoise" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="static" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -329,6 +302,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="prjnoise" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="prjnoise" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="appnoise" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shared" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -355,6 +354,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="prjnoise" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="prjnoise" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="appnoise" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="measurement" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -385,6 +414,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="home" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="prjnoise" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="prjnoise" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="appnoise" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="migrations" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -644,7 +691,7 @@
     <option name="totallyTimeSpent" value="24000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-10" y="0" width="1932" height="1030" extended-state="1" />
+    <frame x="-10" y="0" width="1932" height="1030" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15759163" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -685,14 +732,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/appnoise/static/js/angular-cookies.min.js" />
-    <entry file="file://$PROJECT_DIR$/appnoise/static/js/moment-timezone-with-data.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/appnoise/static/js/moment.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -806,27 +845,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/appnoise/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="22" column="76" selection-start-line="22" selection-start-column="76" selection-end-line="22" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/appnoise/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="492">
-          <caret line="36" column="21" selection-start-line="36" selection-start-column="21" selection-end-line="36" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/appnoise/static/app/components/home/home.view.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1188">
-          <caret line="52" column="62" selection-start-line="52" selection-start-column="62" selection-end-line="52" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/appnoise/static/app/app.routes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="486">
@@ -918,27 +936,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/appnoise/static/app/components/measurement/measurement.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-          <folding>
-            <element signature="e#671#818#0" expanded="false" />
-            <element signature="e#855#1250#0" expanded="false" />
-            <element signature="e#1293#2432#0" expanded="false" />
-            <element signature="e#2625#2972#0" expanded="false" />
-            <element signature="e#3016#3221#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/appnoise/static/app/shared/services/measurementResult.service.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1026">
-          <caret line="38" column="33" selection-start-line="38" selection-start-column="33" selection-end-line="38" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/appnoise/static/app/components/measurementResult/measurementResult.controller.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2349">
@@ -960,42 +957,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/appnoise/static/app/shared/services/math.service.js">
+    <entry file="file://$PROJECT_DIR$/appnoise/views/measurements.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        <state relative-caret-position="675">
+          <caret line="31" column="44" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appnoise/static/app/components/home/home.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1053">
+          <caret line="171" column="47" selection-start-line="171" selection-start-column="47" selection-end-line="171" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/appnoise/static/css/custom.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2079">
+        <state relative-caret-position="444">
           <caret line="77" column="19" selection-start-line="77" selection-start-column="19" selection-end-line="77" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/appnoise/views/measurement_records.py">
+    <entry file="file://$PROJECT_DIR$/appnoise/migrations/0004_measurementresult_movingaverage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/appnoise/views/measurement_results.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/appnoise/views/measurements.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="31" column="44" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="44" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1016,45 +1005,120 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/appnoise/static/app/components/home/home.controller.js">
+    <entry file="file://$PROJECT_DIR$/appnoise/views/measurement_records.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1053">
-          <caret line="171" column="47" selection-start-line="171" selection-start-column="47" selection-end-line="171" selection-end-column="47" />
+        <state relative-caret-position="162">
+          <caret line="9" column="50" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/appnoise/static/app/components/measurementResult/addFilter.controller.js">
+    <entry file="file://$PROJECT_DIR$/appnoise/static/app/shared/services/math.service.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="170" column="14" selection-start-line="170" selection-start-column="12" selection-end-line="170" selection-end-column="35" />
+        <state relative-caret-position="107">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appnoise/migrations/0005_auto_20160527_1301.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appnoise/serializers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="22" column="58" selection-start-line="22" selection-start-column="58" selection-end-line="22" selection-end-column="58" />
           <folding>
-            <element signature="e#0#41#0" expanded="false" />
-            <element signature="e#1959#3051#0" expanded="false" />
-            <element signature="e#3091#4388#0" expanded="false" />
-            <element signature="e#4425#5502#0" expanded="false" />
-            <element signature="e#5543#6282#0" expanded="false" />
-            <element signature="e#7060#8368#0" expanded="false" />
-            <element signature="e#8406#9495#0" expanded="false" />
-            <element signature="e#9537#10282#0" expanded="false" />
-            <element signature="e#10321#11024#0" expanded="false" />
-            <element signature="e#11302#11841#0" expanded="false" />
-            <element signature="e#11874#11942#0" expanded="false" />
-            <element signature="e#12012#12759#0" expanded="false" />
+            <element signature="e#0#54#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appnoise/static/app/shared/services/measurementResult.service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="3" column="37" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appnoise/static/app/components/measurement/measurement.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="86" column="12" selection-start-line="86" selection-start-column="12" selection-end-line="87" selection-end-column="50" />
+          <folding>
+            <element signature="e#671#818#0" expanded="false" />
+            <element signature="e#855#1250#0" expanded="false" />
+            <element signature="e#1293#2432#0" expanded="false" />
+            <element signature="e#2625#2972#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appnoise/static/app/components/home/home.view.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-226">
+          <caret line="35" column="88" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="88" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/appnoise/static/app/components/measurementResult/addFilter.view.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+        <state relative-caret-position="486">
+          <caret line="86" column="53" selection-start-line="86" selection-start-column="53" selection-end-line="86" selection-end-column="53" />
           <folding>
+            <element signature="n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#div#1;n#div#0;n#!!top" expanded="false" />
             <element signature="n#style#0;n#nvd3#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#nvd3#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
             <element signature="n#div#2;n#div#0;n#!!top" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appnoise/static/app/components/measurementResult/addFilter.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="53">
+          <caret line="349" column="73" selection-start-line="349" selection-start-column="73" selection-end-line="349" selection-end-column="73" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+            <element signature="e#1995#3087#0" expanded="false" />
+            <element signature="e#3127#4424#0" expanded="false" />
+            <element signature="e#4461#5529#0" expanded="false" />
+            <element signature="e#5570#6310#0" expanded="false" />
+            <element signature="e#6348#7046#0" expanded="false" />
+            <element signature="e#7088#8396#0" expanded="false" />
+            <element signature="e#8434#9514#0" expanded="false" />
+            <element signature="e#9556#10302#0" expanded="false" />
+            <element signature="e#10341#11044#0" expanded="false" />
+            <element signature="e#11314#11844#0" expanded="false" />
+            <element signature="e#11877#11945#0" expanded="false" />
+            <element signature="e#12015#12762#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appnoise/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="37" column="21" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appnoise/views/measurement_results.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="19" column="41" selection-start-line="19" selection-start-column="41" selection-end-line="19" selection-end-column="41" />
+          <folding />
         </state>
       </provider>
     </entry>
