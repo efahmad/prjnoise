@@ -16,6 +16,7 @@ urlpatterns = [
     # ================== MeasurementResults ==================
     url(r'^measurementResults/$', measurement_results.MeasurementResultList.as_view()),
     url(r'^measurementResults/(?P<pk>[0-9]+)/$', measurement_results.MeasurementResultDetail.as_view()),
+    url(r'^measurementResults/(?P<pk>[0-9]+)/isMain/$', measurement_results.set_main_result),
 
     # ================== MeasurementRecords ==================
     url(r'^measurementRecords/many/$', measurement_records.MeasurementRecordBulkView.as_view()),

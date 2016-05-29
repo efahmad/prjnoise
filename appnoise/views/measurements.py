@@ -70,6 +70,6 @@ class MeasurementMeasurementRecordDetails(APIView):
 class MeasurementMeasurementResultDetails(APIView):
     # GET /measurement/5/measurementResults
     def get(self, request, pk, format=None):
-        measurement_results = MeasurementResult.objects.filter(measurement=pk)
+        measurement_results = MeasurementResult.objects.filter(measurement=pk).order_by("id")
         serializer = MeasurementResultSerializer(measurement_results, many=True)
         return Response(serializer.data)

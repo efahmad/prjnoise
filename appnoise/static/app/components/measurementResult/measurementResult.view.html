@@ -2,6 +2,17 @@
     .gridViewContainer .table tr {
         cursor: pointer;
     }
+
+    .fa-square-o:hover {
+        font-size: 22px;
+    }
+
+    .resultLabel {
+        width: 75px;
+        display: inline-block !important;
+        line-height: 2;
+        direction: ltr;
+    }
 </style>
 <div class="container-fluid">
 
@@ -26,7 +37,7 @@
         </div>
     </div>
 
-    <!-- Measurement Results Data Grid -->
+    <!-- Data Grid -->
     <div class="row row-bottom-space" ng-if="vm.measurementResults.length > 0">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -41,13 +52,14 @@
                             <th>li</th>
                             <!--<th>sv</th>-->
                             <th>rn</th>
-                           <!--<th>icorr</th>-->
+                            <!--<th>icorr</th>-->
                             <th>mpy</th>
                             <!--<th>Amperage Filter Min</th>-->
                             <!--<th>Amperage Filter Max</th>-->
                             <!--<th>Voltage Filter Min</th>-->
                             <!--<th>Voltage Filter Max</th>-->
                             <th>نتیجه اصلی</th>
+                            <th>جزئیات</th>
                             <th>نمودارها</th>
                             <th>فیلتر ها</th>
                             <th>عملیات</th>
@@ -55,7 +67,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="row in vm.measurementResults"
-                            ng-class="{'selectedRow': vm.selectedRowId === row.id}"
+                            ng-class="{'selectedRow': vm.selectedRow.id === row.id}"
                             ng-click="vm.selectRow(row)">
                             <td>{{row.rowNum}}</td>
                             <!--<td>{{vm.round(row.average)}}</td>
@@ -72,7 +84,17 @@
                             <!--<td>{{row.voltageFilterMax}}</td>-->
                             <td>
                                 <i ng-if="row.isMainResult" class="fa fa-check-square-o" aria-hidden="true"></i>
-                                <i ng-if="!row.isMainResult" class="fa fa-square-o" aria-hidden="true"></i>
+                                <i ng-if="!row.isMainResult"
+                                   ng-click="vm.setAsMainResult(row)"
+                                   class="fa fa-square-o"
+                                   aria-hidden="true"></i>
+                            </td>
+                            <td>
+                                <button type="button"
+                                        class="btn btn-info btn-sm"
+                                        ng-click="vm.viewDetails()">
+                                    <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                                </button>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-info btn-sm"
@@ -89,12 +111,13 @@
                             <td>
                                 <button type="button" class="btn btn-info btn-sm"
                                         ng-if="vm.hasFilter(row)"
-                                        ng-click="vm.showAmperageDiagram(row)" title="نمایش فیلتر های اعمال شده">
+                                        ng-click="vm.viewFilters(row)" title="نمایش فیلتر های اعمال شده">
                                     <i class="fa fa-filter" aria-hidden="true"></i>
                                 </button>
                             </td>
                             <td>
                                 <button type="button"
+                                        ng-if="!row.isMainResult"
                                         class="btn btn-danger btn-sm"
                                         mwl-confirm
                                         title="{{ 'حذف نتیجه' }}"
@@ -128,4 +151,128 @@
               class="with-3d-shadow with-transitions"></nvd3>
     </div>
 
+    <!-- Parameters -->
+    <div class="row row-bottom-space" ng-if="vm.view.details">
+        <!-- -->
+        <div class="col-md-offset-1 col-md-4">
+            <div class="row">
+                <hr/>
+                <div class="col-md-6">
+                    <div class="label label-success resultLabel">Average</div>
+                </div>
+                <div class="col-md-6 text-left">{{vm.round(vm.selectedRow.average)}}</div>
+            </div>
+            <div class="row">
+                <hr/>
+                <div class="col-md-6">
+                    <div class="label label-success resultLabel">Rms</div>
+                </div>
+                <div class="col-md-6 text-left">{{vm.round(vm.selectedRow.rms)}}</div>
+            </div>
+            <div class="row">
+                <hr/>
+                <div class="col-md-6">
+                    <div class="label label-success resultLabel">Si</div>
+                </div>
+                <div class="col-md-6 text-left">{{vm.round(vm.selectedRow.si)}}</div>
+            </div>
+            <div class="row">
+                <hr/>
+                <div class="col-md-6">
+                    <div class="label label-success resultLabel">Sv</div>
+                </div>
+                <div class="col-md-6 text-left">{{vm.round(vm.selectedRow.sv)}}</div>
+            </div>
+            <div class="row">
+                <hr/>
+                <div class="col-md-6">
+                    <div class="label label-success resultLabel">Icorr</div>
+                </div>
+                <div class="col-md-6 text-left">{{vm.round(vm.selectedRow.icorr)}}</div>
+            </div>
+        </div>
+
+        <!-- Main parameters -->
+        <div class="col-md-offset-2 col-md-4">
+            <div class="row">
+                <hr/>
+                <div class="col-md-6">
+                    <div class="label label-danger resultLabel">Li</div>
+                </div>
+                <div class="col-md-6 text-left">{{vm.round(vm.selectedRow.li)}}</div>
+            </div>
+            <div class="row">
+                <hr/>
+                <div class="col-md-6">
+                    <div class="label label-danger resultLabel">Rn</div>
+                </div>
+                <div class="col-md-6 text-left">{{vm.round(vm.selectedRow.rn)}}</div>
+            </div>
+            <div class="row">
+                <hr/>
+                <div class="col-md-6">
+                    <div class="label label-danger resultLabel">Mpy</div>
+                </div>
+                <div class="col-md-6 text-left">{{vm.round(vm.selectedRow.mpy)}}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="row row-bottom-space" ng-if="vm.view.filters">
+
+        <!-- Voltage filter -->
+        <div class="col-md-6">
+            <span>فیلتر پتانسیل</span>
+            <hr/>
+            <div class="row row-bottom-space" ng-if="vm.hasValue(vm.selectedRow.voltageFilterMin)">
+                <div class="col-md-4 text-left no-padding">
+                    <label class="left-margin-15">از</label>
+                    <div class="label label-success resultLabel">{{vm.round(vm.selectedRow.voltageFilterMin)}}</div>
+                </div>
+                <div class="col-md-1 line-height-normal"><label>تا</label></div>
+                <div class="col-md-7 no-padding">
+                    <div class="label label-success resultLabel">{{vm.round(vm.selectedRow.voltageFilterMax)}}</div>
+                </div>
+            </div>
+            <div class="row row-bottom-space" ng-if="vm.hasValue(vm.selectedRow.voltageMovingAverage)">
+                <div class="col-md-5 text-left line-height-normal">
+                    <label>میانگین متحرک</label>
+                </div>
+                <div class="col-md-7 no-padding">
+                    <div class="label label-success resultLabel">{{vm.round(vm.selectedRow.voltageMovingAverage)}}</div>
+                </div>
+            </div>
+            <hr/>
+        </div>
+
+        <!-- Amperage filter -->
+        <div class="col-md-6">
+            <span>فیلتر جریان</span>
+            <hr/>
+            <div class="row row-bottom-space" ng-if="vm.hasValue(vm.selectedRow.amperageFilterMin)">
+                <div class="col-md-4 no-padding text-left">
+                    <label class="left-margin-15">از</label>
+                    <div class="label label-success resultLabel">{{vm.round(vm.selectedRow.amperageFilterMin)}}</div>
+                </div>
+                <div class="col-md-1 line-height-normal">
+                    <label>تا</label>
+                </div>
+                <div class="col-md-7 no-padding">
+                    <div class="label label-success resultLabel">{{vm.round(vm.selectedRow.amperageFilterMax)}}</div>
+                </div>
+            </div>
+            <div class="row row-bottom-space" ng-if="vm.hasValue(vm.selectedRow.amperageMovingAverage)">
+                <div class="col-md-5 text-left line-height-normal">
+                    <label>میانگین متحرک</label>
+                </div>
+                <div class="col-md-7 no-padding">
+                    <div class="label label-success resultLabel">{{vm.round(vm.selectedRow.amperageMovingAverage)}}
+                    </div>
+                </div>
+            </div>
+            <hr/>
+        </div>
+
+    </div>
 </div>

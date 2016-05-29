@@ -24,9 +24,10 @@
         vm.view = {
             voltage: false,
             amperage: false,
-            filters: false
+            filters: false,
+            details: false
         };
-        vm.selectedRowId = -1;
+        vm.selectedRow = {};
 
 
         //==== function definitions ====
@@ -44,6 +45,10 @@
         vm.hasFilter = hasFilter;
         vm.addNewFilter = addNewFilter;
         vm.removeResult = removeResult;
+        vm.setAsMainResult = setAsMainResult;
+        vm.viewDetails = viewDetails;
+        vm.viewFilters = viewFilters;
+        vm.hasValue = hasValue;
 
         // Start the app
         vm.start();
@@ -135,9 +140,61 @@
             }];
         }
 
+        function getFilteredData(row, filterCol) {
+            debugger;
+            var tempData = angular.copy(vm.measurementRecords);
+            var filteredData = [];
+
+            // Apply filter
+            if (!isNaN(parseFloat(row[filterCol + "FilterMin"]))) {
+                for (var i = 0; i < tempData.length; i++) {
+                    if (tempData[i][filterCol] <= row[filterCol + "FilterMax"] &&
+                        tempData[i][filterCol] >= row[filterCol + "FilterMin"]) {
+                        filteredData.push(tempData[i]);
+                    }
+                }
+            } else {
+                filteredData = tempData;
+            }
+
+            debugger;
+
+            // Apply voltage MAR
+            if (!isNaN(parseFloat(row[filterCol + "MovingAverage"]))) {
+                filteredData = removeMovingAverage(filteredData, row[filterCol + "MovingAverage"], filterCol);
+            }
+
+            debugger;
+
+            return filteredData;
+        }
+
+        function removeMovingAverage(noiseArray, range, columnName) {
+            var filteredArray = [];
+            // Calc boundaries
+            var low = range;
+            var high = (noiseArray.length - 1) - (range + 1);
+            var sum;
+            var tempAvg;
+            var tempNoiseObj;
+
+            for (var i = low; i <= high; i++) {
+                sum = 0;
+                for (var j = i - range; j <= (i + range + 1); j++) {
+                    sum += noiseArray[j][columnName];
+                }
+                tempAvg = sum / (2 * range + 1);
+                tempNoiseObj = angular.copy(noiseArray[i]);
+                tempNoiseObj[columnName] = tempNoiseObj[columnName] - tempAvg;
+                filteredArray.push(tempNoiseObj);
+            }
+
+            return filteredArray;
+        }
+
         function showVoltageDiagram(row) {
             // Prepare data for diagrams
-            vm.voltageData = vm.getDataForDiagram(vm.measurementRecords, "voltage", "Voltage Wave", "#2ca02c");
+            vm.voltageData = vm.getDataForDiagram(getFilteredData(row, "voltage"), "voltage", "Voltage Wave", "#2ca02c");
             // Go to voltage view
             vm.setView("voltage");
             // Set selected row to this row
@@ -145,7 +202,7 @@
         }
 
         function showAmperageDiagram(row) {
-            vm.amperageData = vm.getDataForDiagram(vm.measurementRecords, "amperage", "Amperage Wave", "#2ca02c");
+            vm.amperageData = vm.getDataForDiagram(getFilteredData(row, "amperage"), "amperage", "Amperage Wave", "#2ca02c");
             // Go to voltage view
             vm.setView("amperage");
             // Set selected row to this row
@@ -163,13 +220,13 @@
         }
 
         function selectRow(row) {
-            vm.selectedRowId = row.id;
+            vm.selectedRow = row;
         }
 
         function hasFilter(row) {
             return (!isNaN(parseFloat(row.amperageFilterMin)) && !isNaN(parseFloat(row.amperageFilterMax))) ||
-                (!isNaN(parseFloat(row.voltageFilterMin)) && !isNaN(parseFloat(row.voltageFilterMax)));
-
+                (!isNaN(parseFloat(row.voltageFilterMin)) && !isNaN(parseFloat(row.voltageFilterMax)))
+                || !isNaN(parseFloat(row.voltageMovingAverage)) || !isNaN(parseFloat(row.amperageMovingAverage));
         }
 
         function addNewFilter() {
@@ -192,6 +249,36 @@
                 .error(function (data, status) {
                     toastr.error("خطا در حذف نتیجه");
                 });
+        }
+
+        function setAsMainResult(row) {
+            return measurementResultService.setAsMainResult(row.id)
+                .success(function (data, status) {
+                    toastr.success("نتیجه اصلی با موفقیت تغییر یافت");
+                    // Reload results
+                    vm.getMeasurementResults(vm.getMeasurementId());
+                })
+                .error(function (data, status) {
+                    toastr.error("خطا در تغییر نتیجه اصلی");
+                });
+        }
+
+        function viewDetails(row) {
+            // Go to details view
+            vm.setView("details");
+            // Set selected row to this row
+            vm.selectRow(row);
+        }
+
+        function viewFilters(row) {
+            // Go to details view
+            vm.setView("filters");
+            // Set selected row to this row
+            vm.selectRow(row);
+        }
+
+        function hasValue(property) {
+            return !isNaN(parseFloat(property));
         }
     }
 

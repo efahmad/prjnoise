@@ -5,7 +5,8 @@
         var service = {
             add: add,
             remove: remove,
-            calcAndGetResults: calcAndGetResults
+            calcAndGetResults: calcAndGetResults,
+            setAsMainResult: setAsMainResult
         };
         return service;
 
@@ -67,6 +68,13 @@
             var temp = tempResult.icorr * Math.pow(10, 6);
             tempResult.mpy = 0.128 * temp * 55.8 / 2 / 7.8;
             return tempResult;
+        }
+
+        function setAsMainResult(id) {
+            return $http({
+                url: "/measurementResults/" + id + "/isMain/",
+                method: "PUT"
+            });
         }
     };
 

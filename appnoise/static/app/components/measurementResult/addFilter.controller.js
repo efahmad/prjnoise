@@ -108,6 +108,13 @@
                 filterMax = parseFloat(vm.voltageFilterMax),
                 noiseDataArray;
 
+            // Voltage filter should be applied before moving average if
+            // both of them are going to be applied
+            if (vm.isVoltageMARApplied) {
+                toastr.warning("این فیلتر باید قبل از میانگین متحرک اعمال شود");
+                return;
+            }
+
             // Check validations
             if (!vm.validateFilters(filterMin, filterMax)) {
                 return;
@@ -211,6 +218,13 @@
             var filterMin = parseFloat(vm.amperageFilterMin),
                 filterMax = parseFloat(vm.amperageFilterMax),
                 noiseDataArray;
+
+            // Amperage filter should be applied before moving average if
+            // both of them are going to be applied
+            if (vm.isAmperageMARApplied) {
+                toastr.warning("این فیلتر باید قبل از میانگین متحرک اعمال شود");
+                return;
+            }
 
             // Check validations
             if (!vm.validateFilters(filterMin, filterMax)) {
