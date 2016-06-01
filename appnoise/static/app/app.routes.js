@@ -19,6 +19,9 @@
                 }).when("/measurementResults/addFilter", {
                     templateUrl: "/static/app/components/measurementResult/addFilter.view.html",
                     controller: "addFilterController as vm"
+                }).when("/reports/resultReports", {
+                    templateUrl: "/static/app/components/resultReports/report.view.html",
+                    controller: "reportController as vm"
                 }).otherwise({
                     redirectTo: '/'
                 });

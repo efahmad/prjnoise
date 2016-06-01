@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^measurementResults/$', measurement_results.MeasurementResultList.as_view()),
     url(r'^measurementResults/(?P<pk>[0-9]+)/$', measurement_results.MeasurementResultDetail.as_view()),
     url(r'^measurementResults/(?P<pk>[0-9]+)/isMain/$', measurement_results.set_main_result),
+    url(r'^measurementResults/report/$', measurement_results.get_report_data),
 
     # ================== MeasurementRecords ==================
     url(r'^measurementRecords/many/$', measurement_records.MeasurementRecordBulkView.as_view()),

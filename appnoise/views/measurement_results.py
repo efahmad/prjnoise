@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.http import Http404
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -21,7 +23,7 @@ class MeasurementResultList(APIView):
 
     # GET /measurementResults
     def get(self, request, format=None):
-        measurement_results = MeasurementResult.object.all()
+        measurement_results = MeasurementResult.objects.all()
         serializer = MeasurementResultSerializer(measurement_results, many=True)
         return Response(serializer.data)
 
@@ -84,3 +86,30 @@ def set_main_result(request, pk):
         measurement_result.save()
         serializer = MeasurementResultSerializer(measurement_result)
         return Response(serializer.data)
+
+
+# /measurementResults/report/
+@api_view(['GET'])
+def get_report_data(request):
+    """
+    Gets the report data
+    :param request: The http request object
+    :return: Response object
+    """
+    if request.method == 'GET':
+        start_date_milli = int(request.query_params["start_date"])
+        end_date_milli = int(request.query_params["end_date"])
+
+        start_date = datetime.fromtimestamp(start_date_milli / 1000.0).date()
+        end_date = datetime.fromtimestamp(end_date_milli / 1000.0).date()
+
+        results = MeasurementResult.objects.filter(
+            measurement__measurement_date__range=(start_date, end_date),
+            isMainResult=True).values('id',
+                                      'li',
+                                      'rn',
+                                      'mpy',
+                                      'measurement__measurement_date')
+        # serializer = MeasurementResultSerializer(results, many=True)
+        # return Response(serializer.data)
+        return Response(data=results)

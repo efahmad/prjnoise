@@ -1,0 +1,54 @@
+<style type="text/css">
+    .date-picker-container div {
+        direction: ltr;
+    }
+
+    .date-picker-container table {
+        margin: auto;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-1 no-padding line-height-normal text-left">از تاریخ</div>
+        <div class="col-md-4">
+            <p class="input-group date-picker-container">
+                <input type="text" uib-datepicker-popup
+                       class="form-control"
+                       ng-model="vm.fromDate.date"
+                       is-open="vm.fromDate.popupOpened"
+                       datepicker-options="vm.dateOptions"/>
+                <span class="input-group-btn">
+                    <button type="button"
+                            class="btn btn-default"
+                            ng-click="vm.fromDate.openPopup()">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </button>
+                </span>
+            </p>
+        </div>
+        <div class="col-md-1 no-padding line-height-normal text-left">تا تاریخ</div>
+        <div class="col-md-4">
+            <p class="input-group date-picker-container">
+                <input type="text" uib-datepicker-popup
+                       class="form-control"
+                       ng-model="vm.toDate.date"
+                       is-open="vm.toDate.popupOpened"
+                       datepicker-options="vm.dateOptions"/>
+                <span class="input-group-btn">
+                    <button type="button"
+                            class="btn btn-default"
+                            ng-click="vm.toDate.openPopup()">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </button>
+                </span>
+            </p>
+        </div>
+        <div class="col-md-2 text-center">
+            <button type="button"
+                    class="btn btn-info"
+                    ng-click="vm.search()">
+                <span>جستجو</span>
+            </button>
+        </div>
+    </div>
+</div>

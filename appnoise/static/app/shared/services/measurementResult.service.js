@@ -6,7 +6,8 @@
             add: add,
             remove: remove,
             calcAndGetResults: calcAndGetResults,
-            setAsMainResult: setAsMainResult
+            setAsMainResult: setAsMainResult,
+            getReportData: getReportData
         };
         return service;
 
@@ -74,6 +75,13 @@
             return $http({
                 url: "/measurementResults/" + id + "/isMain/",
                 method: "PUT"
+            });
+        }
+
+        function getReportData(startDate, endDate) {
+            return $http({
+                method: "GET",
+                url: "/measurementResults/report/?start_date=" + startDate + "&end_date=" + endDate
             });
         }
     };

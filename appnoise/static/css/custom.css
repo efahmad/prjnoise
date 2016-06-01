@@ -14,8 +14,8 @@ body {
     font-family: 'WYekan', 'Helvetica Neue', Helvetica, Atahoma;
 }
 
-th,
-td {
+.gridViewContainer th,
+.gridViewContainer td {
     padding-left: 5px;
     padding-right: 5px;
     text-align: center;
