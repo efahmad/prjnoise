@@ -10,7 +10,8 @@
             getVoltageOptions: getVoltageOptions,
             getAmperageOptions: getAmperageOptions,
             getVoltageData: getVoltageData,
-            getAmperageData: getAmperageData
+            getAmperageData: getAmperageData,
+            getDataForDiagram: getDataForDiagram
         };
 
         var options = {

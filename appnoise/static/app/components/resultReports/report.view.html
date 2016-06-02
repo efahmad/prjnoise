@@ -8,7 +8,7 @@
     }
 </style>
 <div class="container-fluid">
-    <div class="row">
+    <div class="row row-bottom-space">
         <div class="col-md-1 no-padding line-height-normal text-left">از تاریخ</div>
         <div class="col-md-4">
             <p class="input-group date-picker-container">
@@ -50,5 +50,10 @@
                 <span>جستجو</span>
             </button>
         </div>
+    </div>
+    <!-- Diagram -->
+    <div class="row row-bottom-space">
+        <nvd3 options="vm.diagramOptions" data="vm.diagramData" style="direction: ltr;"
+              class="with-3d-shadow with-transitions"></nvd3>
     </div>
 </div>

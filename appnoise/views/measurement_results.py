@@ -109,7 +109,5 @@ def get_report_data(request):
                                       'li',
                                       'rn',
                                       'mpy',
-                                      'measurement__measurement_date')
-        # serializer = MeasurementResultSerializer(results, many=True)
-        # return Response(serializer.data)
+                                      'measurement__measurement_date').order_by("measurement__measurement_date")
         return Response(data=results)
