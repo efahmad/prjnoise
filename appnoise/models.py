@@ -3,7 +3,16 @@ from django.db import models
 
 # Create your models here.
 
+class Point(models.Model):
+    title = models.CharField(max_length=50)
+    description = models.CharField(max_length=256)
+
+    def __str__(self):
+        return self.title
+
+
 class Measurement(models.Model):
+    point = models.ForeignKey(Point, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     measurement_date = models.DateTimeField()
 

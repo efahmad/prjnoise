@@ -10,7 +10,8 @@
             getAll: getAll,
             remove: remove,
             getRecords: getRecords,
-            getResults: getResults
+            getResults: getResults,
+            getByPointAndDate: getByPointAndDate
         };
         return service;
 
@@ -53,6 +54,13 @@
         function getResults(id) {
             return $http({
                 url: "/measurements/" + id + "/measurementResults/",
+                method: "GET"
+            });
+        }
+
+        function getByPointAndDate(point_id, milliseconds){
+            return $http({
+                url: "/measurements/?point_id=" + point_id + "&measurement_date=" + milliseconds,
                 method: "GET"
             });
         }

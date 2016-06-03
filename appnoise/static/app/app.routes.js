@@ -10,6 +10,9 @@
                 $routeProvider.when('/', {
                     templateUrl: '/static/app/components/home/home.view.html',
                     controller: 'homeController as vm'
+                }).when("/points", {
+                    templateUrl: "/static/app/components/point/point.view.html",
+                    controller: "pointController as vm"
                 }).when("/measurements", {
                     templateUrl: '/static/app/components/measurement/measurement.view.html',
                     controller: 'measurementController as vm'

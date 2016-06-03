@@ -53,6 +53,11 @@
                     <i class="fa fa-home left-margin-10" aria-hidden="true"></i>
                     <span>صفحه اصلی</span>
                 </a></li>
+                <li ng-class="{'active': vm.activePath === '#/points'}" ng-click="vm.setActivePath('#/points')"><a
+                        href="#/points">
+                    <i class="fa fa-thumb-tack left-margin-10" aria-hidden="true"></i>
+                    <span>نقاط</span>
+                </a></li>
                 <li ng-class="{'active': vm.activePath === '#/'}" ng-click="vm.setActivePath('#/')"><a href="#/">
                     <i class="fa fa-upload left-margin-10" aria-hidden="true"></i>
                     <span>افزودن فایل</span>
@@ -139,6 +144,7 @@
 <script type="text/javascript" src="/static/app/shared/services/tempStorage.service.js"></script>
 <script type="text/javascript" src="/static/app/shared/services/math.service.js"></script>
 <script type="text/javascript" src="/static/app/shared/services/diagrams.service.js"></script>
+<script type="text/javascript" src="/static/app/shared/services/point.service.js"></script>
 <!-- Constants -->
 <script type="text/javascript" src="/static/app/shared/constants/statusCodes.constant.js"></script>
 <!-- Controllers -->
@@ -147,6 +153,7 @@
 <script type="text/javascript" src="/static/app/components/measurementResult/measurementResult.controller.js"></script>
 <script type="text/javascript" src="/static/app/components/measurementResult/addFilter.controller.js"></script>
 <script type="text/javascript" src="/static/app/components/resultReports/report.controller.js"></script>
+<script type="text/javascript" src="/static/app/components/point/point.controller.js"></script>
 <!-- Initialization script -->
 <script type="text/javascript">
     toastr.options.positionClass = "toast-bottom-left";

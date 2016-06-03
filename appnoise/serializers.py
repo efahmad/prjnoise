@@ -1,12 +1,18 @@
 from rest_framework.serializers import ModelSerializer
 
-from appnoise.models import Measurement, MeasurementRecord, MeasurementResult
+from appnoise.models import Measurement, MeasurementRecord, MeasurementResult, Point
+
+
+class PointSerializer(ModelSerializer):
+    class Meta:
+        model = Point
+        fields = ('id', 'title', 'description')
 
 
 class MeasurementSerializer(ModelSerializer):
     class Meta:
         model = Measurement
-        fields = ('id', 'title', 'measurement_date')
+        fields = ('id', 'point', 'title', 'measurement_date')
 
 
 class MeasurementRecordSerializer(ModelSerializer):

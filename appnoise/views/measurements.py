@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.http import Http404
 from rest_framework import status
 from rest_framework.response import Response
@@ -13,8 +15,28 @@ class MeasurementList(APIView):
 
     # GET /measurements
     def get(self, request, format=None):
-        # Get all measurements and order by measurement_date descending
-        measurements = Measurement.objects.all().order_by("-measurement_date")
+        # Get all measurements
+        measurements = Measurement.objects.all()
+
+        print("measurement_date" in request.query_params)
+        print("point_id" in request.query_params)
+
+        # If there are any request params, apply them to the query
+        # Check measurement_date param existence and check if it is not empty string
+        if "measurement_date" in request.query_params and request.query_params["measurement_date"]:
+            # Apply measurement date
+            print("measurement_date: " + request.query_params["measurement_date"])
+            measurement_date_milli = int(request.query_params["measurement_date"])
+            measurement_date = datetime.fromtimestamp(measurement_date_milli / 1000.0)
+            measurements = measurements.filter(measurement_date=measurement_date)
+
+        # Check point_id param existence and check if it is not empty string
+        if "point_id" in request.query_params and request.query_params["point_id"]:
+            # Apply point id
+            point_id = int(request.query_params["point_id"])
+            measurements = measurements.filter(point=point_id)
+
+        measurements = measurements.order_by("-measurement_date")
         serializer = MeasurementSerializer(measurements, many=True)
         return Response(serializer.data)
 
@@ -57,7 +79,7 @@ class MeasurementDetail(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-# /measurement/5/measurementRecords
+# /measurements/5/measurementRecords
 class MeasurementMeasurementRecordDetails(APIView):
     # GET /measurement/5/measurementRecords
     def get(self, request, pk, format=None):
@@ -66,7 +88,7 @@ class MeasurementMeasurementRecordDetails(APIView):
         return Response(serializer.data)
 
 
-# /measurement/5/measurementResults
+# /measurements/5/measurementResults
 class MeasurementMeasurementResultDetails(APIView):
     # GET /measurement/5/measurementResults
     def get(self, request, pk, format=None):

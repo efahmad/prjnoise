@@ -148,7 +148,6 @@
             var day = parseInt(dateArray[0]);
             var month = parseInt(dateArray[1]) - 1;
             var year = parseInt(dateArray[2]);
-
             var hour = parseInt(timeArray[0]);
             var minute = parseInt(timeArray[1]);
             var second = parseInt(timeArray[2]);
@@ -160,6 +159,8 @@
                 title: vm.selectedFileName,
                 measurement_date: fileDate
             };
+
+            // TODO: Check if there is not a same measurement for this point in the db
 
             vm.saveMeasurement(measurement);
         }

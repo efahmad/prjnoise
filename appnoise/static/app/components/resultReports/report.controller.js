@@ -5,7 +5,7 @@
 
     "use strict";
 
-    function reportController($location, measurementResultService, diagramsService) {
+    function reportController($location, measurementResultService, diagramsService, mathService) {
 
         //==== variables ====
         var vm = this;
@@ -76,6 +76,8 @@
                                 (new Date(vm.measurementResults[i].measurement__measurement_date)).getTime() - baseTime;
                             // Convert milliseconds to hours
                             vm.measurementResults[i].time = vm.measurementResults[i].time / (3600 * 1000);
+                            // Round the time to one place
+                            vm.measurementResults[i].time = mathService.round(vm.measurementResults[i].time, 1);
                         }
                     }
 
@@ -103,5 +105,6 @@
     }
 
     angular.module("noiseApp").controller("reportController", reportController);
-    reportController.$inject = ["$location", "measurementResultService", "diagramsService"];
+    reportController.$inject = ["$location", "measurementResultService", "diagramsService",
+        "mathService"];
 })();

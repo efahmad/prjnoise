@@ -1,9 +1,12 @@
 from django.conf.urls import url
 
-from appnoise.views import home, measurements, measurement_results, measurement_records
+from appnoise.views import home, measurements, measurement_results, measurement_records, points
 
 urlpatterns = [
     url(r'^$', home.index, name='index'),
+
+    # ================== Points ==================
+    url(r'^points/$', points.PointList.as_view()),
 
     # ================== Measurements ==================
     url(r'^measurements/$', measurements.MeasurementList.as_view()),
