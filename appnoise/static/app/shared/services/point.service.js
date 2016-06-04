@@ -7,7 +7,8 @@
     define([], function () {
         function pointService($http) {
             var service = {
-                getAll: getAll
+                getAll: getAll,
+                add: add
             };
             return service;
 
@@ -15,6 +16,17 @@
                 return $http({
                     url: "/points/",
                     method: "GET"
+                });
+            }
+
+            function add(title, description) {
+                return $http({
+                    url: "/points/",
+                    method: "POST",
+                    data: {
+                        title: title,
+                        description: description
+                    }
                 });
             }
         }

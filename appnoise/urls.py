@@ -7,6 +7,7 @@ urlpatterns = [
 
     # ================== Points ==================
     url(r'^points/$', points.PointList.as_view()),
+    url(r'^points/(?P<pk>[0-9]+)/$', points.PointDetails.as_view()),
 
     # ================== Measurements ==================
     url(r'^measurements/$', measurements.MeasurementList.as_view()),

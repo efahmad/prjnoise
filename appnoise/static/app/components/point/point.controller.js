@@ -9,10 +9,15 @@
             //==== Variables ====
             var vm = this;
             vm.points = [];
+            vm.point = {
+                title: "",
+                description: ""
+            };
 
             //==== Function definitions ====
             vm.start = start;
             vm.getAllPoints = getAllPoints;
+            vm.savePoint = savePoint;
 
 
             // Start the app
@@ -24,7 +29,8 @@
                 // Set the view title
                 angular.element("#viewTitle").html("نقاط");
 
-
+                debugger;
+                vm.getAllPoints();
             }
 
             function getAllPoints() {
@@ -37,6 +43,25 @@
                     })
                     .error(function (data, status) {
                         toastr.error("خطا در دریافت لیست نقاط");
+                    });
+            }
+
+            function savePoint() {
+                // Check validations
+                if (vm.point.title.trim() === "") {
+                    toastr.error("عنوان نقطه را وارد کنید.");
+                    return;
+                }
+
+                return pointService.add(vm.point.title, vm.point.description)
+                    .success(function (data, status) {
+                        toastr.success("ذخیره سازی اطلاعات نقطه با موفقیت انجام شد");
+                        // Reload all points
+                        vm.getAllPoints();
+                        // TODO: Clear the form
+                    })
+                    .error(function (data, status) {
+                        toastr.error("خطا در ذخیره سازی اطلاعات نقطه");
                     });
             }
         }
