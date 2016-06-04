@@ -4,21 +4,23 @@
 (function () {
     "use strict";
 
-    function pointService($http) {
-        var service = {
-            getAll: getAll
-        };
-        return service;
+    define([], function () {
+        function pointService($http) {
+            var service = {
+                getAll: getAll
+            };
+            return service;
 
-        function getAll() {
-            return $http({
-                url: "/points/",
-                method: "GET"
-            });
+            function getAll() {
+                return $http({
+                    url: "/points/",
+                    method: "GET"
+                });
+            }
         }
-    }
 
-    angular.module("noiseApp").factory("pointService", pointService);
-    pointService.$inject = ["$http"];
+        pointService.$inject = ["$http"];
+        return pointService;
+    });
 
 })();

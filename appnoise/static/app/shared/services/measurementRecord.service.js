@@ -1,30 +1,35 @@
-(function() {
+(function () {
     "use strict";
 
-    function measurementRecordService($http) {
-        var service = {
-            add: add,
-            addMany: addMany
-        };
-        return service;
+    define([], function () {
 
-        function add(measurementRecord) {
-            return $http({
-                url: "/MeasurementRecords",
-                method: "POST",
-                data: measurementRecord
-            });
+        function measurementRecordService($http) {
+            var service = {
+                add: add,
+                addMany: addMany
+            };
+            return service;
+
+            function add(measurementRecord) {
+                return $http({
+                    url: "/MeasurementRecords",
+                    method: "POST",
+                    data: measurementRecord
+                });
+            }
+
+            function addMany(measurementRecordArray) {
+                return $http({
+                    url: "/measurementRecords/many/",
+                    method: "POST",
+                    data: measurementRecordArray
+                });
+            }
         }
 
-        function addMany(measurementRecordArray) {
-            return $http({
-                url: "/measurementRecords/many/",
-                method: "POST",
-                data: measurementRecordArray
-            });
-        }
-    }
+        measurementRecordService.$inject = ["$http"];
+        return measurementRecordService;
+        
+    });
 
-    angular.module("noiseApp").factory("measurementRecordService", measurementRecordService);
-    measurementRecordService.$inject = ["$http"];
 })();
