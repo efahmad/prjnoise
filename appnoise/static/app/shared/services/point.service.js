@@ -8,7 +8,9 @@
         function pointService($http) {
             var service = {
                 getAll: getAll,
-                add: add
+                add: add,
+                edit: edit,
+                remove: remove
             };
             return service;
 
@@ -27,6 +29,25 @@
                         title: title,
                         description: description
                     }
+                });
+            }
+
+            function edit(id, title, description) {
+                return $http({
+                    url: "/points/" + id + "/",
+                    method: "PUT",
+                    data: {
+                        id: id,
+                        title: title,
+                        description: description
+                    }
+                });
+            }
+
+            function remove(id) {
+                return $http({
+                    url: "/points/" + id + "/",
+                    method: "delete"
                 });
             }
         }

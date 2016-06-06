@@ -13,12 +13,16 @@
                 title: "",
                 description: ""
             };
+            vm.isInEditMode = false;
+
 
             //==== Function definitions ====
             vm.start = start;
             vm.getAllPoints = getAllPoints;
             vm.savePoint = savePoint;
-
+            vm.deletePoint = deletePoint;
+            vm.goToEditMode = goToEditMode;
+            vm.cancelEditMode = cancelEditMode;
 
             // Start the app
             vm.start();
@@ -28,8 +32,6 @@
             function start() {
                 // Set the view title
                 angular.element("#viewTitle").html("نقاط");
-
-                debugger;
                 vm.getAllPoints();
             }
 
@@ -53,16 +55,56 @@
                     return;
                 }
 
-                return pointService.add(vm.point.title, vm.point.description)
+                if (vm.isInEditMode) {
+                    // Edit the current point
+                    return pointService.edit(vm.point.id, vm.point.title, vm.point.description)
+                        .success(function (data, status) {
+                            toastr.success("ویرایش اطلاعات نقطه با موفقیت انجام شد");
+                            // Reload all points
+                            vm.getAllPoints();
+                            vm.cancelEditMode();
+                        })
+                        .error(function (data, status) {
+                            toastr.error("خطا در ویرایش اطلاعات نقطه");
+                        });
+                } else {
+                    // Add a new point
+                    return pointService.add(vm.point.title, vm.point.description)
+                        .success(function (data, status) {
+                            toastr.success("ذخیره سازی اطلاعات نقطه با موفقیت انجام شد");
+                            // Reload all points
+                            vm.getAllPoints();
+                            vm.cancelEditMode();
+                        })
+                        .error(function (data, status) {
+                            toastr.error("خطا در ذخیره سازی اطلاعات نقطه");
+                        });
+                }
+
+            }
+
+            function deletePoint(id) {
+                return pointService.remove(id)
                     .success(function (data, status) {
-                        toastr.success("ذخیره سازی اطلاعات نقطه با موفقیت انجام شد");
-                        // Reload all points
+                        toastr.success("حذف نقطه با موفقیت انجام شد");
                         vm.getAllPoints();
-                        // TODO: Clear the form
                     })
                     .error(function (data, status) {
-                        toastr.error("خطا در ذخیره سازی اطلاعات نقطه");
+                        toastr.error("خطا در حذف نقطه");
                     });
+            }
+
+            function goToEditMode(row) {
+                vm.isInEditMode = true;
+                vm.point = angular.copy(row);
+            }
+
+            function cancelEditMode() {
+                vm.isInEditMode = false;
+                vm.point = {
+                    title: "",
+                    description: ""
+                };
             }
         }
 

@@ -13,7 +13,7 @@ class PointList(APIView):
 
     # GET /points/
     def get(self, request, format=None):
-        points = Point.objects.all()
+        points = Point.objects.all().order_by("id")
         serializer = PointSerializer(points, many=True)
         return Response(data=serializer.data)
 
