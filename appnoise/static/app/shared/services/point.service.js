@@ -7,12 +7,20 @@
     define([], function () {
         function pointService($http) {
             var service = {
+                get: get,
                 getAll: getAll,
                 add: add,
                 edit: edit,
                 remove: remove
             };
             return service;
+
+            function get(id) {
+                return $http({
+                    url: "/points/" + id + "/",
+                    method: "GET"
+                });
+            }
 
             function getAll() {
                 return $http({

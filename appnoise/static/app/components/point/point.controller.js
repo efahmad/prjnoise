@@ -5,7 +5,7 @@
     "use strict";
 
     define(['toastr'], function (toastr) {
-        function pointController(pointService) {
+        function pointController($location, pointService) {
             //==== Variables ====
             var vm = this;
             vm.points = [];
@@ -23,6 +23,7 @@
             vm.deletePoint = deletePoint;
             vm.goToEditMode = goToEditMode;
             vm.cancelEditMode = cancelEditMode;
+            vm.addFile = addFile;
 
             // Start the app
             vm.start();
@@ -106,9 +107,13 @@
                     description: ""
                 };
             }
+
+            function addFile(pointId) {
+                $location.path('/').search("point_id", pointId);
+            }
         }
 
-        pointController.$inject = ["pointService"];
+        pointController.$inject = ["$location", "pointService"];
         return pointController;
     });
 

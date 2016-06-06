@@ -6,12 +6,14 @@
     'use strict';
 
     define(['toastr'], function (toastr) {
-        function homeController($scope, 
-                                blockUI, 
-                                measurementService, 
+        function homeController($location,
+                                $scope,
+                                blockUI,
+                                measurementService,
                                 measurementRecordService,
                                 measurementResultService,
-                                mathService) {
+                                mathService,
+                                pointService) {
 
             //==== Variables ====//
             var vm = this;
@@ -29,6 +31,8 @@
             vm.clearForm = clearForm;
             vm.selectFile = selectFile;
             vm.round = round;
+            vm.getPointId = getPointId;
+            vm.cancelAndReturn = cancelAndReturn;
 
             // Execute the start function
             vm.start();
@@ -36,8 +40,23 @@
 
             //==== Function implementations ====//
             function start() {
-                // Set view title
-                angular.element("#viewTitle").html("افزودن فایل");
+
+                // Check point_id query param
+                if (isNaN(vm.getPointId())) {
+                    // There is no point id, so return to the points view
+                    $location.path('/points').search("");
+                    return;
+                }
+
+                pointService.get(vm.getPointId())
+                    .success(function (data, status) {
+                        // Set view title
+                        var str = "افزودن فایل به نقطه " + data.title;
+                        angular.element("#viewTitle").html(str);
+                    })
+                    .error(function (data, status) {
+                        toastr.error("خطا در دریافت اطلاعات نقطه");
+                    })
             }
 
             function saveMeasurement(measurement) {
@@ -46,6 +65,7 @@
                     .success(function (data, status) {
                         // Save measurement records
                         vm.saveMeasurementRecords(data).success(function (recordData, recordStatus) {
+                            debugger;
                             // Save a default (main) measurement result
                             vm.saveMeasurementResult(data).success(function () {
                                 // Hide save button
@@ -80,6 +100,7 @@
             }
 
             function saveMeasurementResult(measurement) {
+                debugger;
                 var measurementResult = measurementResultService.calcAndGetResults(vm.noises);
                 measurementResult.measurement = measurement.id;
                 measurementResult.isMainResult = true;
@@ -162,7 +183,8 @@
                 var measurement = {
                     id: 0,
                     title: vm.selectedFileName,
-                    measurement_date: fileDate
+                    measurement_date: fileDate,
+                    point: vm.getPointId()
                 };
 
                 // TODO: Check if there is not a same measurement for this point in the db
@@ -177,11 +199,20 @@
             function round(number) {
                 return mathService.to_exponential_3(number);
             }
+
+            function getPointId() {
+                return parseInt($location.search().point_id);
+            }
+
+            function cancelAndReturn() {
+                $location.path('/points').search("");
+            }
         }
 
 
-        homeController.$inject = ["$scope", "blockUI", "measurementService",
-            "measurementRecordService", "measurementResultService", "mathService"];
+        homeController.$inject = ["$location", "$scope", "blockUI", "measurementService",
+            "measurementRecordService", "measurementResultService", "mathService",
+            "pointService"];
 
         return homeController;
     });

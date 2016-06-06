@@ -1,8 +1,10 @@
 (function () {
     "use strict";
 
-    define([], function () {
+    define(["math"], function (math) {
         function measurementResultService($http) {
+            var me = this;
+            me.math = math;
             var service = {
                 add: add,
                 remove: remove,
@@ -61,9 +63,9 @@
 
                 tempResult.average = amperageSquareSum / amperageFilteredRecords.length;
                 tempResult.rms = Math.sqrt(tempResult.average);
-                tempResult.si = math.std(amperageArray);
+                tempResult.si = me.math.std(amperageArray);
                 tempResult.li = tempResult.si / tempResult.rms;
-                tempResult.sv = math.std(voltageArray);
+                tempResult.sv = me.math.std(voltageArray);
                 tempResult.rn = tempResult.sv / tempResult.si;
                 tempResult.icorr = 0.026 / tempResult.rn;
                 // Convert & Round icorr to 3 decimal places

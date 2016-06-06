@@ -13,6 +13,13 @@
             <input type="text" class="form-control" ng-disabled="true" ng-model="vm.selectedFileName"
                    style="text-align: center;">
         </div>
+        <div class="col-md-6 text-left">
+            <button type="button"
+                    class="btn btn-danger"
+                    ng-click="vm.cancelAndReturn()">
+                <span>بازگشت</span>
+            </button>
+        </div>
     </div>
     <!-- Select File Hint -->
     <div class="row row-bottom-space" ng-if="!vm.noises || vm.noises.length === 0">
