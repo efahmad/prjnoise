@@ -65,7 +65,6 @@
                     .success(function (data, status) {
                         // Save measurement records
                         vm.saveMeasurementRecords(data).success(function (recordData, recordStatus) {
-                            debugger;
                             // Save a default (main) measurement result
                             vm.saveMeasurementResult(data).success(function () {
                                 // Hide save button
@@ -100,7 +99,6 @@
             }
 
             function saveMeasurementResult(measurement) {
-                debugger;
                 var measurementResult = measurementResultService.calcAndGetResults(vm.noises);
                 measurementResult.measurement = measurement.id;
                 measurementResult.isMainResult = true;
@@ -187,9 +185,18 @@
                     point: vm.getPointId()
                 };
 
-                // TODO: Check if there is not a same measurement for this point in the db
-
-                vm.saveMeasurement(measurement);
+                // Check if there is a same measurement for this point in the db
+                measurementService.getByPointAndDate(vm.getPointId(), fileDate.getTime())
+                    .success(function (data, status) {
+                        if (data.length > 0) {
+                            toastr.info("این فایل قبلا برای این نقطه به ثبت رسیده است.");
+                        } else {
+                            vm.saveMeasurement(measurement);
+                        }
+                    })
+                    .error(function (data, status) {
+                        toastr.error("خطا در مشابهت یابی فایل");
+                    });
             }
 
             function selectFile() {

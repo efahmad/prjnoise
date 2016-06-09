@@ -18,14 +18,10 @@ class MeasurementList(APIView):
         # Get all measurements
         measurements = Measurement.objects.all()
 
-        print("measurement_date" in request.query_params)
-        print("point_id" in request.query_params)
-
         # If there are any request params, apply them to the query
         # Check measurement_date param existence and check if it is not empty string
         if "measurement_date" in request.query_params and request.query_params["measurement_date"]:
             # Apply measurement date
-            print("measurement_date: " + request.query_params["measurement_date"])
             measurement_date_milli = int(request.query_params["measurement_date"])
             measurement_date = datetime.fromtimestamp(measurement_date_milli / 1000.0)
             measurements = measurements.filter(measurement_date=measurement_date)
