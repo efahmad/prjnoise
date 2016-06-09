@@ -28,7 +28,7 @@
              * @returns {number} The rounded number
              */
             function round(number, places) {
-                return math.round(number * math.pow(10, places)) / math.pow(10, places)
+                return Math.round(number * Math.pow(10, places)) / Math.pow(10, places)
             }
 
         }

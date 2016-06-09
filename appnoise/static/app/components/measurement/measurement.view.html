@@ -36,14 +36,16 @@
                         <thead>
                         <tr>
                             <th>ردیف</th>
-                            <th>عنوان</th>
-                            <th>تاریخ</th>
+                            <th>نقطه</th>
+                            <th>عنوان فایل</th>
+                            <th>تاریخ اندازه گیری</th>
                             <th>عملیات</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="row in vm.measurements">
                             <td ng-bind="row.rowNum"></td>
+                            <td>{{row.point__title}}</td>
                             <td ng-bind="row.title"></td>
                             <td style="direction: ltr;"
                                 ng-bind="vm.dateTimeService.toTehranTimeZone(row.measurement_date)"></td>
@@ -57,7 +59,6 @@
                                 </button>
                                 <button type="button"
                                         class="btn btn-danger btn-sm"
-                                        style="margin-right: 10px;"
                                         mwl-confirm
                                         title="{{ 'حذف فایل' }}"
                                         message="{{ 'فایل مورد نظر و تمامی داده ها و نتایج آن حذف خواهد شد. ادامه می دهید ؟' }}"

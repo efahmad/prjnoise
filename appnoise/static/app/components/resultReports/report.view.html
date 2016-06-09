@@ -9,6 +9,16 @@
 </style>
 <div class="container-fluid">
     <div class="row row-bottom-space">
+        <div class="col-md-1 no-padding line-height-normal text-left">
+            <span>انتخاب نقطه</span>
+        </div>
+        <div class="col-md-4">
+            <select style="width: 100%;"
+                    ng-model="vm.selectedPoint"
+                    ng-options="p.title for p in vm.points"></select>
+        </div>
+    </div>
+    <div class="row row-bottom-space">
         <div class="col-md-1 no-padding line-height-normal text-left">از تاریخ</div>
         <div class="col-md-4">
             <p class="input-group date-picker-container">

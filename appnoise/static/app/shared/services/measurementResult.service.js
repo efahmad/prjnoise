@@ -81,10 +81,11 @@
                 });
             }
 
-            function getReportData(startDate, endDate) {
+            function getReportData(startDate, endDate, pointId) {
                 return $http({
                     method: "GET",
-                    url: "/measurementResults/report/?start_date=" + startDate + "&end_date=" + endDate
+                    url: "/measurementResults/report/?start_date=" +
+                    startDate + "&end_date=" + endDate + "&point_id=" + pointId
                 });
             }
         };

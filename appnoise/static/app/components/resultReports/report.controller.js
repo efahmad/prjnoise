@@ -6,8 +6,12 @@
     "use strict";
 
     define(['toastr'], function (toastr) {
-        
-        function reportController($location, measurementResultService, diagramsService, mathService) {
+
+        function reportController($location,
+                                  measurementResultService,
+                                  diagramsService,
+                                  mathService,
+                                  pointService) {
 
             //==== variables ====
             var vm = this;
@@ -24,6 +28,9 @@
             vm.measurementResults = [];
             vm.diagramOptions = {};
             vm.diagramData = [];
+            vm.points = [];
+            vm.selectedPoint = undefined;
+
 
             //==== Function Definitions ====
             vm.start = start;
@@ -63,10 +70,21 @@
                     vm.diagramOptions.chart.yAxis.axisLabel = 'Mpy';
                     vm.diagramOptions.title.text = "";
                 }
+
+                // Get points for drop down
+                pointService.getAll()
+                    .success(function (data, status) {
+                        vm.points = data;
+                        vm.selectedPoint = vm.points.length > 0 ? vm.points[0] : undefined;
+                    })
+                    .error(function (data, status) {
+                        toastr.error("خطا در دریافت لیست نقاط");
+                    });
             }
 
             function search() {
-                return measurementResultService.getReportData(vm.fromDate.date.getTime(), vm.toDate.date.getTime())
+                return measurementResultService.getReportData(vm.fromDate.date.getTime(),
+                    vm.toDate.date.getTime(), vm.selectedPoint ? vm.selectedPoint.id : 0)
                     .success(function (data, status) {
                         vm.measurementResults = data;
                         // Convert dates to milliseconds
@@ -107,7 +125,7 @@
         }
 
         reportController.$inject = ["$location", "measurementResultService", "diagramsService",
-            "mathService"];
+            "mathService", "pointService"];
         return reportController;
     });
 

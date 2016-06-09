@@ -103,8 +103,12 @@ def get_report_data(request):
         start_date = datetime.fromtimestamp(start_date_milli / 1000.0).date()
         end_date = datetime.fromtimestamp(end_date_milli / 1000.0).date()
 
+        # Apply point id
+        point_id = int(request.query_params["point_id"])
+
         results = MeasurementResult.objects.filter(
             measurement__measurement_date__range=(start_date, end_date),
+            measurement__point=point_id,
             isMainResult=True).values('id',
                                       'li',
                                       'rn',

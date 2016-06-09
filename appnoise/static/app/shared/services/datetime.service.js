@@ -1,7 +1,7 @@
 (function () {
     "use strict";
 
-    define([], function () {
+    define(["moment-timezone"], function (moment) {
 
         function dateTimeService() {
             var service = {

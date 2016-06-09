@@ -32,9 +32,10 @@ class MeasurementList(APIView):
             point_id = int(request.query_params["point_id"])
             measurements = measurements.filter(point=point_id)
 
-        measurements = measurements.order_by("-measurement_date")
-        serializer = MeasurementSerializer(measurements, many=True)
-        return Response(serializer.data)
+        measurements = measurements.values("id", "title", "measurement_date", "point", "point__title").order_by(
+            "-measurement_date")
+        # serializer = MeasurementSerializer(measurements, many=True)
+        return Response(measurements)
 
     # POST /measurements
     def post(self, request, format=None):
