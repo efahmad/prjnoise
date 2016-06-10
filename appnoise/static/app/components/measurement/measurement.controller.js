@@ -3,7 +3,7 @@
 
     define(['toastr'], function (toastr) {
 
-        function measurementController($location, measurementService, dateTimeService) {
+        function measurementController($location, measurementService, dateTimeService, pointService) {
 
             var vm = this;
             vm.header = "نتایج پیشین";
@@ -11,15 +11,20 @@
             vm.activeTab = 1;
             vm.measurements = [];
             vm.noises = [];
+            vm.points = [];
+            vm.selectedPoint = {};
+
 
             //==== Function Definitions ====//
             vm.getMeasurements = getMeasurements;
             vm.deleteFile = deleteFile;
             vm.viewResults = viewResults;
             vm.start = start;
+            vm.selectedPointChanged = selectedPointChanged;
 
             // Start the app
             vm.start();
+
 
             //==== Function Implementations ====//
             function start() {
@@ -27,18 +32,32 @@
                 // Set view title
                 angular.element("#viewTitle").html("فایل های ذخیره شده");
 
-                vm.getMeasurements();
+                // Get points for drop down
+                pointService.getAll()
+                    .success(function (data, status) {
+                        vm.points = data;
+                        vm.selectedPoint = vm.points.length > 0 ? vm.points[0] : undefined;
+                        vm.getMeasurements(vm.selectedPoint);
+                    })
+                    .error(function (data, status) {
+                        toastr.error("خطا در دریافت لیست نقاط");
+                    });
             }
 
-            function getMeasurements() {
-                return measurementService.getAll().success(function (data, status) {
-                    vm.measurements = data;
-                    for (var i = 0; i < vm.measurements.length; i++) {
-                        vm.measurements[i].rowNum = i + 1;
-                    }
-                }).error(function (data, status) {
-                    toastr.error("خطا در دریافت لیست فایل ها");
-                });
+            function getMeasurements(point) {
+                return (point ? measurementService.getByPoint(point.id) : measurementService.getAll())
+                    .success(function (data, status) {
+                        vm.measurements = data;
+                        for (var i = 0; i < vm.measurements.length; i++) {
+                            vm.measurements[i].rowNum = i + 1;
+                        }
+                    }).error(function (data, status) {
+                        toastr.error("خطا در دریافت لیست فایل ها");
+                    });
+            }
+
+            function selectedPointChanged() {
+                vm.getMeasurements(vm.selectedPoint);
             }
 
             /**
@@ -60,7 +79,8 @@
             }
         }
 
-        measurementController.$inject = ["$location", "measurementService", "dateTimeService"];
+        measurementController.$inject = ["$location", "measurementService",
+            "dateTimeService", "pointService"];
         return measurementController;
     });
 

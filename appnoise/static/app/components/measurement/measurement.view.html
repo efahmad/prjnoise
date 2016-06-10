@@ -17,18 +17,31 @@
     }
 </style>
 <div class="container-fluid">
+
+    <div class="row row-bottom-space-md">
+        <div class="col-md-1 line-height-normal" style="padding-left: 0;">
+            <span>انتخاب نقطه</span>
+        </div>
+        <div class="col-md-4">
+            <select style="width: 100%;"
+                    ng-change="vm.selectedPointChanged()"
+                    ng-model="vm.selectedPoint"
+                    ng-options="p.title for p in vm.points"></select>
+        </div>
+    </div>
+
     <!-- No Data Hint -->
     <div class="row row-bottom-space" ng-if="!vm.measurements || vm.measurements.length === 0">
         <div class="col-md-12">
             <div class="alert alert-info">
                 <i class="fa fa-info" aria-hidden="true" style="margin-left: 10px;"></i>
-                داده ای موجود نیست
+                <span>داده ای موجود نیست</span>
             </div>
         </div>
     </div>
 
     <!-- Data Grid -->
-    <div class="row row-top-space row-bottom-space" ng-if="vm.measurements.length > 0">
+    <div class="row row-bottom-space" ng-if="vm.measurements.length > 0">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body gridViewContainer">

@@ -4,7 +4,7 @@
 (function () {
 
     define([], function () {
-        
+
         function measurementService($http) {
             var service = {
                 add: add,
@@ -13,6 +13,7 @@
                 remove: remove,
                 getRecords: getRecords,
                 getResults: getResults,
+                getByPoint: getByPoint,
                 getByPointAndDate: getByPointAndDate
             };
             return service;
@@ -56,6 +57,13 @@
             function getResults(id) {
                 return $http({
                     url: "/measurements/" + id + "/measurementResults/",
+                    method: "GET"
+                });
+            }
+
+            function getByPoint(point_id) {
+                return $http({
+                    url: "/measurements/?point_id=" + point_id,
                     method: "GET"
                 });
             }
