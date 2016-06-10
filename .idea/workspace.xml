@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6b1a4209-8228-4a8c-8bd7-dcdfd6ef6732" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appnoise/static/app/components/measurement/measurement.controller.js" afterPath="$PROJECT_DIR$/appnoise/static/app/components/measurement/measurement.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appnoise/static/app/components/measurement/measurement.view.html" afterPath="$PROJECT_DIR$/appnoise/static/app/components/measurement/measurement.view.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appnoise/static/app/shared/services/measurement.service.js" afterPath="$PROJECT_DIR$/appnoise/static/app/shared/services/measurement.service.js" />
-    </list>
+    <list default="true" id="6b1a4209-8228-4a8c-8bd7-dcdfd6ef6732" name="Default" comment="" />
     <ignored path="prjnoise.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
