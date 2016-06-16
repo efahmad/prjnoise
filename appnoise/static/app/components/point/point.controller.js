@@ -109,7 +109,7 @@
             }
 
             function addFile(pointId) {
-                $location.path('/').search("point_id", pointId);
+                $location.path('/measurements/add').search("point_id", pointId);
             }
         }
 

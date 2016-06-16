@@ -17,6 +17,9 @@
             }).when("/measurements", {
                 templateUrl: '/static/app/components/measurement/measurement.view.html',
                 controller: 'measurementController as vm'
+            }).when('/measurements/add', {
+                templateUrl: '/static/app/components/measurement/measurementAdd.view.html',
+                controller: 'measurementAddController as vm'
             }).when("/measurementResults", {
                 templateUrl: "/static/app/components/measurementResult/measurementResult.view.html",
                 controller: "measurementResultController as vm"

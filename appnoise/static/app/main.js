@@ -38,7 +38,7 @@ require.config({
         "measurementResultService": "/static/app/shared/services/measurementResult.service",
         "mathService": "/static/app/shared/services/math.service",
         "pointService": "/static/app/shared/services/point.service",
-        "dateTimeService": "/static/app/shared/services/dateTime.service",
+        "dateTimeService": "/static/app/shared/services/datetime.service",
         "diagramsService": "/static/app/shared/services/diagrams.service",
 
         // Controllers
@@ -48,7 +48,8 @@ require.config({
         "measurementResultController": "/static/app/components/measurementResult/measurementResult.controller",
         "addFilterController": "/static/app/components/measurementResult/addFilter.controller",
         "reportController": "/static/app/components/resultReports/report.controller",
-        "pointController": "/static/app/components/point/point.controller"
+        "pointController": "/static/app/components/point/point.controller",
+        "measurementAddController": "/static/app/components/measurement/measurementAdd.controller"
     },
     shim: {
         // Modules and their dependent modules

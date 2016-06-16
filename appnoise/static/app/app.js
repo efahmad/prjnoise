@@ -25,6 +25,7 @@
             "addFilterController",
             "reportController",
             "pointController",
+            "measurementAddController",
 
             "angular-route",
             "angular-animate",
@@ -50,7 +51,8 @@
                   measurementResultController,
                   addFilterController,
                   reportController,
-                  pointController) {
+                  pointController,
+                  measurementAddController) {
 
             var app = angular.module("noiseApp", ["ngRoute", "blockUI",
                 "ui.bootstrap", "ngAnimate", "mwl.confirm", "angular-loading-bar",
@@ -77,6 +79,7 @@
             app.controller("addFilterController", addFilterController);
             app.controller("reportController", reportController);
             app.controller("pointController", pointController);
+            app.controller("measurementAddController", measurementAddController);
         });
 
 })();
