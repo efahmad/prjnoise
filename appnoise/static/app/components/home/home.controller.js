@@ -12,12 +12,16 @@
             var vm = this;
 
             //==== Function Definitions ====//
+            vm.start = start;
 
             // Execute the start function
-            
-
+            vm.start();
 
             //==== Function implementations ====//
+            function start() {
+                // Set the view title
+                angular.element("#viewTitle").html("");
+            }
         }
 
 

@@ -42,7 +42,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="">
+            <a class="navbar-brand" ng-click="vm.setActivePath('#/')" href="#/">
                 <i class="fa fa-calculator left-margin-10" aria-hidden="true"></i>
                 <span>سامانه محاسبات نویز</span>
             </a>
@@ -59,8 +59,8 @@
                     <span>نقاط</span>
                 </a></li>
                 <!--<li ng-class="{'active': vm.activePath === '#/'}" ng-click="vm.setActivePath('#/')"><a href="#/">-->
-                    <!--<i class="fa fa-upload left-margin-10" aria-hidden="true"></i>-->
-                    <!--<span>افزودن فایل</span>-->
+                <!--<i class="fa fa-upload left-margin-10" aria-hidden="true"></i>-->
+                <!--<span>افزودن فایل</span>-->
                 <!--</a></li>-->
                 <li ng-class="{'active': vm.activePath === '#/measurements'}"
                     ng-click="vm.setActivePath('#/measurements')"><a href="#/measurements">
@@ -74,13 +74,13 @@
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li ng-click="vm.setActivePath('#/reports/resultReports')">
-                            <a href="#/reports/resultReports?report_param=li">گزارش Li</a>
+                            <a href="#/reports/resultReports?report_param=li">شاخص موضعی شدن Li</a>
                         </li>
                         <li ng-click="vm.setActivePath('#/reports/resultReports')">
-                            <a href="#/reports/resultReports?report_param=rn">گزارش Rn</a>
+                            <a href="#/reports/resultReports?report_param=rn">مقاومت نویز Rn</a>
                         </li>
                         <li ng-click="vm.setActivePath('#/reports/resultReports')">
-                            <a href="#/reports/resultReports?report_param=mpy">گزارش MPY</a>
+                            <a href="#/reports/resultReports?report_param=mpy">خوردگی عمومی بر حسب mpy</a>
                         </li>
                     </ul>
                 </li>
@@ -94,14 +94,64 @@
 </nav>
 
 <div class="container-fluid">
-    <div class="row" style="margin-top: 75px;">
+    <div class="row header-row" style="margin-top: 75px;">
+        <div class="col-md-2 col-md-offset-1 text-center">
+            <img src="/static/images/fanni_small.png" style="height: 100px;">
+            <p>
+                <span>دانشگاه تهران</span>
+                <br/>
+                <span>پردیس دانشکده های فنی</span>
+                <br/>
+                <span>دانشکده مهندسی متالوژی و مواد</span>
+            </p>
+        </div>
+        <div class="col-md-2 text-center">
+            <img src="/static/images/Logo.jpg" style="height: 100px;">
+            <p>
+                <span>آزمایشگاه جنبه های مکانیکی خوردگی</span>
+            </p>
+        </div>
+        <div class="col-md-2 text-center">
+            <img src="/static/images/noise-icon.png" style="height: 100px;">
+            <p>
+                <span>سامانه محاسبات نویز</span>
+                <br/>
+                <span>الکترو شیمیایی</span>
+            </p>
+        </div>
+        <div class="col-md-2 col-md-offset-2 text-center">
+            <img src="/static/images/gaz_small.png" style="height: 100px;">
+            <p>
+                <span>شركت ملی گاز ایران</span>
+                <br/>
+                <span>شرکت پالایش گاز</span>
+                <br/>
+                <span>سرخون و قشم</span>
+            </p>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
             <div class="panel panel-info">
                 <div class="panel-heading"><h5 id="viewTitle"></h5></div>
-                <div class="panel-body">
+                <div class="panel-body view-content">
                     <!-- Views placeholder -->
                     <div ng-view></div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="/static/images/noise-icon.png" style="height: 30px;">
+                            <span style="margin-right: 5px;">سامانه محاسبات نویز الکترو شیمیایی</span>
+                        </div>
+                        <div class="col-md-4 text-center" style="direction: ltr; font-family: Arial; font-size: 20px;">
+                            <div><span>&copy;</span><span>2016</span></div>
+                        </div>
+                        <div class="col-md-4 text-left" style="direction: ltr; font-family: Arial; font-size: 20px;">
+                            <div>s.ahmad.ef@gmail.com</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -109,52 +159,5 @@
     </div>
 </div>
 
-<!--<script type="text/javascript" src="/static/js/jquery-2.1.4.min.js"></script>-->
-<!--<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>-->
-<!-- Angular JS -->
-<!--<script type="text/javascript" src="/static/js/angular.min.js"></script>-->
-<!--<script type="text/javascript" src="/static/js/angular-route.min.js"></script>-->
-<!--<script type="text/javascript" src="/static/js/angular-animate.min.js"></script>-->
-<!--<script type="text/javascript" src="/static/js/angular-sanitize.min.js"></script>-->
-<!-- Ui Bootstrap -->
-<!--<script type="text/javascript" src="/static/js/ui-bootstrap.min.js"></script>-->
-<!--<script type="text/javascript" src="/static/js/ui-bootstrap-tpls-1.3.2.min.js"></script>-->
-<!-- Angular Bootstrap Confirm -->
-<!--<script type="text/javascript" src="/static/js/angular-bootstrap-confirm.min.js"></script>-->
-<!-- Angular loading bar -->
-<!--<script type="text/javascript" src="/static/js/loading-bar.min.js"></script>-->
-<!-- angular-block-ui -->
-<!--<script type="text/javascript" src="/static/js/angular-block-ui.min.js"></script>-->
-<!-- Other Scripts -->
-<!--<script type="text/javascript" src="/static/js/d3.min.js" charset="utf-8"></script>-->
-<!--<script type="text/javascript" src="/static/js/nv.d3.min.js"></script>-->
-<!--<script type="text/javascript" src="/static/js/angular-nvd3.min.js"></script>-->
-<!--<script type="text/javascript" src="/static/js/math.min.js"></script>-->
-<!--<script type="text/javascript" src="/static/js/toastr.min.js"></script>-->
-<!--<script type="text/javascript" src="/static/js/moment.js"></script>-->
-<!--<script type="text/javascript" src="/static/js/moment-timezone-with-data.js"></script>-->
-<!-- Noise App Scripts -->
-<!--<script type="text/javascript" src="/static/app/app.module.js"></script>-->
-<!--<script type="text/javascript" src="/static/app/app.routes.js"></script>-->
-<!-- Services -->
-<!--<script type="text/javascript" src="/static/app/shared/services/measurement.service.js"></script>-->
-<!--<script type="text/javascript" src="/static/app/shared/services/measurementRecord.service.js"></script>-->
-<!--<script type="text/javascript" src="/static/app/shared/services/measurementResult.service.js"></script>-->
-<!--<script type="text/javascript" src="/static/app/shared/services/datetime.service.js"></script>-->
-<!--<script type="text/javascript" src="/static/app/shared/services/math.service.js"></script>-->
-<!--<script type="text/javascript" src="/static/app/shared/services/diagrams.service.js"></script>-->
-<!--<script type="text/javascript" src="/static/app/shared/services/point.service.js"></script>-->
-<!-- Constants -->
-<!--<script type="text/javascript" src="/static/app/shared/constants/statusCodes.constant.js"></script>-->
-<!-- Controllers -->
-<!--<script type="text/javascript" src="/static/app/components/home/home.controller.js"></script>-->
-<!--<script type="text/javascript" src="/static/app/components/measurement/measurement.controller.js"></script>-->
-<!--<script type="text/javascript" src="/static/app/components/measurementResult/measurementResult.controller.js"></script>-->
-<!--<script type="text/javascript" src="/static/app/components/measurementResult/addFilter.controller.js"></script>-->
-<!--<script type="text/javascript" src="/static/app/components/resultReports/report.controller.js"></script>-->
-<!--<script type="text/javascript" src="/static/app/components/point/point.controller.js"></script>-->
-<!-- Initialization script -->
-
 </body>
-
 </html>
