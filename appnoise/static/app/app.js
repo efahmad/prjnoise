@@ -17,6 +17,8 @@
             "dateTimeService",
             "diagramsService",
 
+            // Directives
+        
             // Controllers
             "menuController",
             "homeController",
@@ -38,6 +40,7 @@
             "toastr"
         ],
         function (config,
+                  // Services
                   measurementService,
                   measurementRecordService,
                   measurementResultService,
@@ -45,6 +48,8 @@
                   pointService,
                   dateTimeService,
                   diagramsService,
+                  // Directives
+                  // Controllers
                   menuController,
                   homeController,
                   measurementController,
@@ -71,6 +76,8 @@
             app.factory("dateTimeService", dateTimeService);
             app.factory("diagramsService", diagramsService);
 
+            // Directives
+            
             // Controllers
             app.controller("menuController", menuController);
             app.controller("homeController", homeController);

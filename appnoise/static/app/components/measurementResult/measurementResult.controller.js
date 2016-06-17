@@ -7,7 +7,7 @@
     define(['toastr'], function (toastr) {
         function measurementResultController($location, measurementService,
                                              mathService, dateTimeService, diagramsService,
-                                             measurementResultService) {
+                                             measurementResultService, pointService) {
 
             //==== variables ====
             var vm = this;
@@ -67,9 +67,20 @@
                 vm.getMeasurement(vm.getMeasurementId())
                     .success(function (data, status) {
                         vm.measurement = data;
-                        // Set view title
-                        angular.element("#viewTitle").html("نتایج اندازه گیری " +
-                            dateTimeService.toTehranTimeZone(vm.measurement.measurement_date));
+                        if (vm.measurement) {
+                            // Get point title
+                            pointService.get(vm.measurement.point)
+                                .success(function (data) {
+                                    vm.point = data;
+                                    // Set view title
+                                    angular.element("#viewTitle").html("نتایج اندازه گیری " +
+                                        dateTimeService.formatToDateTime(vm.measurement.measurement_date) +
+                                        " در نقطه " + vm.point.title);
+                                })
+                                .error(function (data) {
+                                    toastr.error("خطا در دریافت اطلاعات نقطه");
+                                })
+                        }
                     });
 
 
@@ -282,9 +293,9 @@
                 return !isNaN(parseFloat(property));
             }
         }
-        
+
         measurementResultController.$inject = ["$location", "measurementService",
-            "mathService", "dateTimeService", "diagramsService", "measurementResultService"];
+            "mathService", "dateTimeService", "diagramsService", "measurementResultService", "pointService"];
         return measurementResultController;
     });
 

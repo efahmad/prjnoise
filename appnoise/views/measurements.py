@@ -1,13 +1,14 @@
 from datetime import datetime
 
 from django.http import Http404
+from django.utils import timezone
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from appnoise.models import Measurement, MeasurementRecord, MeasurementResult
 from appnoise.serializers import MeasurementSerializer, MeasurementRecordSerializer, MeasurementResultSerializer
-
+from appnoise.utils import DateTimeUtils
 
 # /measurements
 class MeasurementList(APIView):
@@ -22,8 +23,7 @@ class MeasurementList(APIView):
         # Check measurement_date param existence and check if it is not empty string
         if "measurement_date" in request.query_params and request.query_params["measurement_date"]:
             # Apply measurement date
-            measurement_date_milli = int(request.query_params["measurement_date"])
-            measurement_date = datetime.fromtimestamp(measurement_date_milli / 1000.0)
+            measurement_date = DateTimeUtils.to_timezone_aware(request.query_params["measurement_date"])
             measurements = measurements.filter(measurement_date=measurement_date)
 
         # Check point_id param existence and check if it is not empty string

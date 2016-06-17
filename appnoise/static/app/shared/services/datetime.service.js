@@ -5,20 +5,33 @@
 
         function dateTimeService() {
             var service = {
-                toTehranTimeZone: toTehranTimeZone
+                toTehranTimeZone: toTehranTimeZone,
+                formatToDateTime: formatToDateTime,
+                getAsUTC: getAsUTC
             };
             return service;
 
             function toTehranTimeZone(time) {
-                var format = 'YYYY/MM/DD HH:mm:ss ZZ';
-                var format2 = 'YYYY/MM/DD HH:mm:ss';
-                return moment(time, format).tz('Asia/Tehran').format(format2);
+                var inFormat = 'YYYY/MM/DD HH:mm:ss ZZ';
+                var toFormat = 'YYYY/MM/DD HH:mm:ss';
+                return moment(time, inFormat).tz('Asia/Tehran').format(toFormat);
+            }
+
+            function formatToDateTime(datetime) {
+                var inFormat = 'YYYY/MM/DD HH:mm:ss ZZ';
+                var toFormat = 'YYYY/MM/DD HH:mm:ss';
+                return moment(datetime, inFormat).tz('UTC').format(toFormat);
+            }
+
+            function getAsUTC(date) {
+                return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(),
+                    date.getHours(), date.getMinutes(), date.getSeconds()));
             }
         }
 
         dateTimeService.$inject = [];
         return dateTimeService;
-        
+
     });
 
 })();

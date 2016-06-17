@@ -11,7 +11,8 @@
                                   measurementResultService,
                                   diagramsService,
                                   mathService,
-                                  pointService) {
+                                  pointService,
+        dateTimeService) {
 
             //==== variables ====
             var vm = this;
@@ -54,8 +55,9 @@
                 angular.element("#viewTitle").html("گزارش " + vm.getReportParam());
                 // Set dates
                 var now = new Date();
-                vm.fromDate.date = new Date((new Date()).setMonth(now.getMonth() - 1));
-                vm.toDate.date = now;
+                vm.toDate.date = angular.copy(now);
+                vm.fromDate.date = new Date(now.setMonth(now.getMonth() - 1));
+
 
                 // Get options of diagrams
                 vm.diagramOptions = diagramsService.getDefaultOptions();
@@ -83,8 +85,13 @@
             }
 
             function search() {
-                return measurementResultService.getReportData(vm.fromDate.date.getTime(),
-                    vm.toDate.date.getTime(), vm.selectedPoint ? vm.selectedPoint.id : 0)
+                var fromDateParam = dateTimeService.getAsUTC(vm.fromDate.date).toISOString();
+                var toDateParam = angular.copy(vm.toDate.date);
+                toDateParam.setDate(toDateParam.getDate() + 1);
+                toDateParam = dateTimeService.getAsUTC(toDateParam).toISOString();
+
+                return measurementResultService.getReportData(fromDateParam, toDateParam, 
+                    vm.selectedPoint ? vm.selectedPoint.id : 0)
                     .success(function (data, status) {
                         vm.measurementResults = data;
                         // Convert dates to milliseconds
@@ -125,7 +132,7 @@
         }
 
         reportController.$inject = ["$location", "measurementResultService", "diagramsService",
-            "mathService", "pointService"];
+            "mathService", "pointService", "dateTimeService"];
         return reportController;
     });
 

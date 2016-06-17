@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 from django.http import Http404
 from rest_framework import status
@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 
 from appnoise.models import MeasurementResult
 from appnoise.serializers import MeasurementResultSerializer
+from appnoise.utils import DateTimeUtils
 
 
 def get_object(pk):
@@ -97,11 +98,10 @@ def get_report_data(request):
     :return: Response object
     """
     if request.method == 'GET':
-        start_date_milli = int(request.query_params["start_date"])
-        end_date_milli = int(request.query_params["end_date"])
-
-        start_date = datetime.fromtimestamp(start_date_milli / 1000.0).date()
-        end_date = datetime.fromtimestamp(end_date_milli / 1000.0).date()
+        start_date = DateTimeUtils.to_timezone_aware(request.query_params["start_date"])
+        start_date = start_date.replace(hour=0, minute=0, second=0, microsecond=0)
+        end_date = DateTimeUtils.to_timezone_aware(request.query_params["end_date"])
+        end_date = end_date.replace(hour=0, minute=0, second=0, microsecond=0)
 
         # Apply point id
         point_id = int(request.query_params["point_id"])

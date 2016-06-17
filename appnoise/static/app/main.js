@@ -41,6 +41,8 @@ require.config({
         "dateTimeService": "/static/app/shared/services/datetime.service",
         "diagramsService": "/static/app/shared/services/diagrams.service",
 
+        // Directives
+        
         // Controllers
         "menuController": "/static/app/components/menu/menu.controller",
         "homeController": "/static/app/components/home/home.controller",

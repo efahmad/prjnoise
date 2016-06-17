@@ -176,16 +176,17 @@
                 var second = parseInt(timeArray[2]);
                 var millisecond = 0;
 
-                var fileDate = new Date(year, month, day, hour, minute, second, millisecond);
+                var utcFileDate = new Date(Date.UTC(year, month, day, hour, minute, second, millisecond));
+
                 var measurement = {
                     id: 0,
                     title: vm.selectedFileName,
-                    measurement_date: fileDate,
+                    measurement_date: utcFileDate.toISOString(),
                     point: vm.getPointId()
                 };
 
                 // Check if there is a same measurement for this point in the db
-                measurementService.getByPointAndDate(vm.getPointId(), fileDate.getTime())
+                measurementService.getByPointAndDate(vm.getPointId(), utcFileDate.toISOString())
                     .success(function (data, status) {
                         if (data.length > 0) {
                             toastr.info("این فایل قبلا برای این نقطه به ثبت رسیده است.");
