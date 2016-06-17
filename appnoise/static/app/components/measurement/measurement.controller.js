@@ -68,7 +68,7 @@
                 measurementService.remove(fileId).success(function (data, status) {
                     toastr.success("فایل با موفقیت حذف شد");
                     // Reload measurement files list
-                    vm.getMeasurements();
+                    vm.getMeasurements(vm.selectedPoint);
                 }).error(function (data, status) {
                     toastr.error("خطا در حذف فایل");
                 });
